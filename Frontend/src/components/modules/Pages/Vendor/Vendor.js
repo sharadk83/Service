@@ -6,7 +6,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 const Vendor = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  console.log(pathname);
 
   const [formErrors, setFormError] = useState({});
   const [imageFile, setImageFile] = useState("");
@@ -40,24 +39,23 @@ const Vendor = () => {
     confirm_password,
     // user_role,
   } = formData;
-  // ------------------Onchange-event-function--------------------
-
-  const handleFile = (e) => {
-    const Imgfile = e.target.files[0];
-    setImageFile(Imgfile);
-    console.log(Imgfile);
-  };
-  const handleDocxFile = (e) => {
-    const docxfile = e.target.files[0];
-    setDocument_file(docxfile);
-    console.log(docxfile);
-  };
+  // ------------------Onchange-event-function---------------------------------------
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const handleFile = (e) => {
+    const Imgfile = e.target.files[0];
+    setImageFile(Imgfile);
+    // console.log(Imgfile);
+  };
+  const handleDocxFile = (e) => {
+    const docxfile = e.target.files[0];
+    setDocument_file(docxfile);
+    // console.log(docxfile);
+  };
 
-  // -------------------custom-validation--------------------
+  // -------------------custom-validation--------------------------------------------
 
   const validate = () => {
     let inputValid = formData;
@@ -142,7 +140,7 @@ const Vendor = () => {
     setFormError(formErrors);
     return isValid;
   };
- // -------------------User_role-function--------------------
+  // -------------------User_role-function--------------------------------------------
   useEffect(() => {
     // console.log(pathname);
     if (pathname.includes("admin")) {
@@ -152,18 +150,19 @@ const Vendor = () => {
       setUserRole(2);
     }
     // if (pathname.includes("user")) {
-      //   setUserRole(3);
-      // }
-    }, [pathname]);
-     // -------------------URL--------------------
-    const constant = {
-      vendorUrl: "http://localhost:4000/api/users",
-    };
-  // -------------------Submit-data-function--------------------
+    //   setUserRole(3);
+    // }
+  }, [pathname]);
+  // -------------------URL------------------------------------------------------------
+  const constant = {
+    vendorUrl: "http://localhost:4000/api/users",
+  };
+  // -------------------Submit-data-function-------------------------------------------
   const handleSubmit = async (e) => {
     e.preventDefault();
     const Data = new FormData();
     Data.append("file", imageFile);
+    Data.append("file2", document_file);
     Data.append("first_name", first_name);
     Data.append("last_name", last_name);
     Data.append("email", email);
@@ -175,16 +174,19 @@ const Vendor = () => {
     Data.append("password", password);
     Data.append("user_role", user_role);
 
-    // if (validate()) {
-      const res = await axios.post(`${constant.vendorUrl}`, Data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log(res.data);
-
-      navigate("/user/records");
-    // }
+    if (validate()) {
+      try {
+        const res = await axios.post(`${constant.vendorUrl}`, Data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log(res.data);
+        navigate("/user/records");
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
   return (
     <>
@@ -335,7 +337,7 @@ const Vendor = () => {
                     <div className="col-md-4 my-5">
                       <input
                         onChange={handleDocxFile}
-                        name="file"
+                        name="file2"
                         type="file"
                         accept="image/*"
                         style={{ display: "none" }}
@@ -361,7 +363,7 @@ const Vendor = () => {
                     <div className="col-md-4 my-5">
                       <input
                         onChange={handleDocxFile}
-                        name="file"
+                        name="file2"
                         type="file"
                         accept="image/*"
                         style={{ display: "none" }}
@@ -427,7 +429,7 @@ const Vendor = () => {
                       style={{ border: "dashed 2px rgb(105, 103, 103)" }}
                     >
                       <img
-                        width={335}
+                        width={340}
                         height={175}
                         className="border"
                         src={URL.createObjectURL(document_file)}

@@ -14,7 +14,7 @@ import EditSubServies from "./components/modules/Pages/services/EditPages/EditSu
 import SubServiesRecords from "./components/modules/Pages/Records/SubServiesRecords";
 import Profile from "./components/modules/Dashboard/Profile";
 import AddCoupon from "./components/modules/Pages/Coupon/AddCoupon";
-import ResetPassword from "./components/modules/Pages/Signin/ForgetPassword/ResetPassword";
+import ResetPassword from "./components/modules/Pages/Signin/ResetPassword/ResetPassword";
 import PrivateRoute from "./PrivateRoute";
 import AllPages from "./components/modules/Frontend/AllPages";
 import AddNewPages from "./components/modules/Frontend/AddNewPages";

@@ -8,6 +8,7 @@ const VendorRecords = () => {
   // const [status, setStatus] = useState(false);
   const [details, SetDetails] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [ImgDocx, setImgDocx] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage] = useState(4);
   // Get current data
@@ -24,7 +25,7 @@ const VendorRecords = () => {
     pageNumbers.push(i);
   }
 
-  //show data
+  //-------------------------show data-----------------------------------
   const showdata = async () => {
     let vendorList = "http://localhost:4000/api/users";
     await axios.get(vendorList).then((res) => {
@@ -35,18 +36,25 @@ const VendorRecords = () => {
   useEffect(() => {
     showdata();
   }, []);
-  //delete data
+  //-------------------------delete data---------------------------------
   const handleDelete = (id) => {
     let Data = `http://localhost:4000/api/users/${id}`;
     axios.delete(Data).then((res) => {
       showdata();
     });
   };
+  const handleGetPhoto = (id) => {
+    setIsOpen(true);
+    let Data = `http://localhost:4000/api/users/data/${id}`;
+    axios.get(Data).then((res) => {
+      // console.log(res.data[0].document_file);
+      setImgDocx(res.data[0].document_file);
+    });
+  };
+
   const handleStatus = (e) => {
     // setStatus(true);
   };
-
-
   return (
     <>
       <MainLayout>
@@ -104,8 +112,7 @@ const VendorRecords = () => {
                             <td>{e.email}</td>
                             <td>{e.service_charge} &#8377;</td>
                             <td>
-                              {" "}
-                              <Link onClick={() => setIsOpen(true)}>
+                              <Link onClick={() => handleGetPhoto(e.id)}>
                                 {e.document_type}
                               </Link>{" "}
                             </td>
@@ -113,12 +120,6 @@ const VendorRecords = () => {
                             <td>{e.mobile_no}</td>
                             <td>{e.city}</td>
                             <td>
-                              {/* <Link
-                              onClick={() => handleEdit(e.id)}
-                              className="btn border border-2 border-primary mx-1 my-1"
-                            >
-                              <i className="bi bi-pencil-fill"></i>
-                            </Link> */}
                               <Link
                                 to={`/user/editvendor/${e.id}`}
                                 className="btn border border-2 border-primary mx-1 my-1"
@@ -148,12 +149,13 @@ const VendorRecords = () => {
                 </div>
               )}
             </div>
+            {/* ------------------Pagination-------------------------------------- */}
 
             <nav className="d-flex justify-content-end   ">
               {pageNumbers.map((number) => (
                 <ul className="pagination align-items-center" key={number}>
                   <button
-                    className="page-link border rounded-0  border-2 btn-sm  border-primary"
+                    className="page-link border rounded  border-2 btn-sm  border-primary"
                     style={{ margin: "1px" }}
                     // key={number}
                     id={number}
@@ -166,13 +168,17 @@ const VendorRecords = () => {
             </nav>
           </div>
         </div>
-        {/* -------------------popup---------------------- */}
+        {/* ------------------Documnet-Img-popup--------------------------------- */}
         {isOpen && (
           <div className="popup">
             <div className="popup-content">
-              <button onClick={() => setIsOpen(false)}>Close Popup</button>
-              <h1>Popup Title</h1>
-              <p>Popup content goes here</p>
+              <button onClick={() => setIsOpen(false)}>Close </button>
+              <img
+                src={`http://localhost:4000/uploads/${ImgDocx}`}
+                alt="img"
+                width={200}
+                height={200}
+              />
             </div>
           </div>
         )}
