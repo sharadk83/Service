@@ -1,26 +1,19 @@
-// import React, { useState } from 'react';
+import React from "react";
+import MainLayout from "./components/Layout/MainLayout";
 
-// function Test() {
-//   const [data, setData] = useState([
-//     { name: 'John', age: 30 },
-//     { name: 'Jane', age: 25 },
-//     { name: 'John', age: 35 },
-//     { name: 'Jack', age: 40 },
-//     { name: 'Jill', age: 20 }
-//   ]);
+const Test = () => {
+  return (
+    <>
+      <MainLayout>
+        <div class="alert alert-info" role="alert">
+<center>
+A simple info alert—check it out!
 
-//   const uniqueNames = [...new Set(data.map(item => item.name))];
+</center>
+        </div>
+      </MainLayout>
+    </>
+  );
+};
 
-//   return (
-//     <div>
-//       <h1>Unique Names</h1>
-//       <ul>
-//         {uniqueNames.map((name, index) => (
-//           <li key={index}>{name}</li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }
-
-// export default Test;
+export default Test;

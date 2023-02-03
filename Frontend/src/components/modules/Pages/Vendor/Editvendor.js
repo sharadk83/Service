@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const EditVendor = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [responseStatus, setResponseStatus] = useState("");
 
   const [formErrors, setFormError] = useState({});
   const [formData, setFormData] = useState({
@@ -16,14 +17,26 @@ const EditVendor = () => {
     mobile_no: "",
     document: "",
     service_charge: "",
+    experience: "",
+    area: "",
   });
 
-  const { first_name, last_name, address, city, mobile_no, service_charge } =
-    formData;
-
+  const {
+    first_name,
+    last_name,
+    address,
+    city,
+    mobile_no,
+    service_charge,
+    experience,
+    area,
+  } = formData;
+  // -----------------------------OnChange-Event--------------------------------------------
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  // -----------------------------Custom-Validation-----------------------------------------------
+
   const validate = () => {
     let inputValid = formData;
     let formErrors = {};
@@ -66,31 +79,43 @@ const EditVendor = () => {
       isValid = false;
       formErrors.service_charge = "Charges field is required!";
     }
+    if (!inputValid.experience) {
+      isValid = false;
+      formErrors.experience = "Experience field is required!";
+    }
+    if (!inputValid.area) {
+      isValid = false;
+      formErrors.area = "Area field is required!";
+    }
     setFormError(formErrors);
     return isValid;
   };
 
-  useEffect(() => {
-    const getData = () => {
-      const options = {
-        method: "GET",
-        url: `http://localhost:4000/api/users/data/${id}`,
-      };
-      axios
-        .request(options)
-        .then(function (response) {
-          setFormData(...response.data);
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
-    };
-    getData();
-  }, [id]);
+  // -----------------------------URL-----------------------------------------------
 
   const constant = {
     vendorUrl: `http://localhost:4000/api/users/${id}`,
+    getVendorUrl: `http://localhost:4000/api/users/data/${id}`,
   };
+
+  // ---------------------------User-getData-call-function-------------------------------------
+
+  const getData = async () => {
+    await axios
+      .get(`${constant.getVendorUrl}`)
+      .then((response) => {
+        setFormData(...response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
+  // -----------------------------User-Data-Edit-Function-----------------------------------------------
+
   const handleEdit = async (e) => {
     e.preventDefault();
     const payload = {
@@ -100,17 +125,33 @@ const EditVendor = () => {
       city: city,
       mobile_no: mobile_no,
       service_charge: service_charge,
+      experience: experience,
+      area: area,
     };
     if (validate()) {
-      const res = await axios.put(`${constant.vendorUrl}`, payload);
-      console.log(res.data);
-      navigate("/user/records");
+      try {
+        const res = await axios.put(`${constant.vendorUrl}`, payload);
+        console.log(res.data);
+        if (res.data.msgType === "success") {
+          setTimeout(() => {
+            navigate("/url/records");
+          }, 2000);
+        } else if (res.data.msgType === "error") {
+          setResponseStatus({
+            type: res.data.msgType,
+            message: res.data.message,
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
   return (
     <>
       {/* {JSON.stringify(formData)} */}
       <MainLayout>
+        {responseStatus}
         <div className="container-fluid ">
           <div className="row h-100 align-items-center justify-content-center">
             <div className="col-sm-10">
@@ -166,8 +207,18 @@ const EditVendor = () => {
                     />
                     <small style={{ color: "red" }}>{formErrors.address}</small>
                   </div>
-
-                  <div className="col-md-3">
+                  <div className="col-md-6">
+                    <label className="form-label">Area</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="area"
+                      onChange={handleChange}
+                      value={area}
+                    />
+                    <small style={{ color: "red" }}>{formErrors.area}</small>
+                  </div>
+                  <div className="col-md-4">
                     <label className="form-label">Mobile No.</label>
                     <input
                       type="number"
@@ -180,8 +231,31 @@ const EditVendor = () => {
                       {formErrors.mobile_no}
                     </small>
                   </div>
-
-                  <div className="col-md-3">
+                  <div className="col-md-4">
+                    <label className="form-label">Experience</label>
+                    <select
+                      className="form-select"
+                      onChange={handleChange}
+                      name="experience"
+                      value={experience}
+                    >
+                      <option value="1_year">1 year</option>
+                      <option value="2_year">2 year</option>
+                      <option value="3_year">3 year</option>
+                      <option value="4_year">4 year</option>
+                      <option value="5_year">5 year</option>
+                      <option value="6_year">6 year</option>
+                      <option value="7_year">7 year</option>
+                      <option value="8_year">8 year</option>
+                      <option value="9_year">9 year</option>
+                      <option value="10_year">10 year</option>
+                      <option value="10_year above">10 year above</option>
+                    </select>
+                    <small style={{ color: "red" }}>
+                      {formErrors.experience}
+                    </small>
+                  </div>
+                  <div className="col-md-4">
                     <label className="form-label">Service charge</label>
                     <input
                       className="form-control"

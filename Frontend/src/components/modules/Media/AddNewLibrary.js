@@ -11,7 +11,7 @@ const AddNewLibrary = () => {
     handleUpload();
   };
   const handleUpload = async () => {
-    let api = "http://localhost:1000/library";
+    let api = "";
     // const data = new FormData();
     // data.append("file", file);
     try {

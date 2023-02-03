@@ -29,14 +29,14 @@ const SubServiesRecords = () => {
     showdata();
   }, []);
   const showdata = () => {
-    let Data = "http://localhost:4000/api/sub_service";
+    let Data = "";
     axios.get(Data).then((res) => {
       SetDetails(res.data);
     });
   };
 
   const handleDelete = (id) => {
-    let Data = `http://localhost:4000/api/sub_service${id}`;
+    let Data = ``;
     axios.delete(Data).then((res) => {
       showdata();
     });

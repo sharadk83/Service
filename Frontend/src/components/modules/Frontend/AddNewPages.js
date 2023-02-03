@@ -48,7 +48,7 @@ const AddNewPages = () => {
 
     //   const ImgData = new FormData();
     //   ImgData.append("File", imgPath);
-    let api = "http://localhost:2000/pages";
+    let api = "";
     if (validate()) {
       axios
         .post(api, {

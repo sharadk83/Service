@@ -7,7 +7,7 @@ const AllPages = () => {
   const [Data, setData] = useState([]);
   const [preview, setPreview] = useState([]);
   useEffect(() => {
-    let api = "http://localhost:2000/pages";
+    let api = "";
     async function fetchData() {
       try {
         const response = await axios.get(api);

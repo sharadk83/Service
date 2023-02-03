@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Users from "../../Images/user.jpg";
 
 const Sidebar = () => {
-  const user = localStorage.getItem("user");
   const photoURL = localStorage.getItem("photoURL");
   const [imageNotFound, setImageNotFound] = useState(false);
 
@@ -22,8 +21,7 @@ const Sidebar = () => {
         <nav className="navbar ">
           <Link to="/" className="navbar-brand mx-4 mb-3">
             <h5 className="text-white">
-              <i className="fa fa-hashtag me-2"></i>
-              DASHMIN
+              <i className="fa fa-hashtag me-2"></i>Dashmin
             </h5>
           </Link>
           <div className="d-flex align-items-center ms-4 mb-4">
@@ -51,10 +49,7 @@ const Sidebar = () => {
               <div className="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
             </div>
             <div className="ms-3 text-white ">
-              {/* <small className="mb-0 text-white">{users}</small> */}
-
-              {/* <span> Admin</span> */}
-              <span> {user}</span>
+              <span> Admin</span>
             </div>
           </div>
           <div className="navbar-nav w-100">
@@ -71,28 +66,30 @@ const Sidebar = () => {
               >
                 <i className="  fa fa-laptop me-2"></i>Servies
               </a>
-              <div className="  bg-transparent border-0">
+              <div className=" bg-transparent   ">
                 {parentOpen && (
                   <ul>
                     <Link onClick={() => setChildA(!childA)}>
-                      <div className="text-white mx-3 my-2">
+                      <div className="text-white mx-3 my-3">
                         <p>Add Category</p>
                       </div>
                       {childA && (
                         <ul className="ul-item">
                           <div>
-                            <Link to="/user/mainservies">
+                            <Link to="/url/mainservies">
                               <small>Main-Services</small>
                             </Link>
                           </div>
                           <div>
-                            <Link to="/user/subservies">
+                            <Link to="/url/subservies">
                               <small>Sub-Services</small>
                             </Link>
                           </div>
                         </ul>
                       )}
                     </Link>
+
+                    <hr />
                     <Link onClick={() => setChildB(!childB)}>
                       <div className="text-white mx-3 ">
                         <p>View Category</p>
@@ -100,12 +97,12 @@ const Sidebar = () => {
                       {childB && (
                         <ul className="ul-item">
                           <div>
-                            <Link to="/user/main_servies_record">
+                            <Link to="/url/main_servies_record">
                               <small>Main-Service view</small>
                             </Link>
                           </div>
                           <div>
-                            <Link to="/user/sub_servies_record">
+                            <Link to="/url/sub_servies_record">
                               <small>Sub-Service view</small>
                             </Link>
                           </div>
@@ -127,11 +124,11 @@ const Sidebar = () => {
               </a>
 
               <div className=" mx-3 my-1 dropdown-menu dropdown-menu-end  bg-white border rounded rounded-bottom m-0">
-                <Link to="/user/library" className="dropdown-item">
+                <Link to="/url/library" className="dropdown-item">
                   <small>Library</small>
                 </Link>
                 <hr className="mt-0 mb-0 text-primary" />
-                <Link to="/user/add-new-library" className="dropdown-item">
+                <Link to="/url/add-new-library" className="dropdown-item">
                   <small>Add New </small>
                 </Link>
               </div>
@@ -147,11 +144,11 @@ const Sidebar = () => {
               </a>
 
               <div className=" mx-3 my-1 dropdown-menu dropdown-menu-end  bg-white border rounded rounded-bottom m-0">
-                <Link to="/user/all-pages" className="dropdown-item">
+                <Link to="/url/all-pages" className="dropdown-item">
                   <small>All Pages</small>
                 </Link>
                 <hr className="mt-0 mb-0 text-primary" />
-                <Link to="/user/add-new-page" className="dropdown-item">
+                <Link to="/url/add-new-page" className="dropdown-item">
                   <small>Add New Page</small>
                 </Link>
               </div>
@@ -167,23 +164,27 @@ const Sidebar = () => {
               </a>
 
               <div className=" mx-3 my-1 dropdown-menu dropdown-menu-end  bg-white border rounded rounded-bottom m-0">
-                <Link to="/user/vendor" className="dropdown-item">
+                <Link to="/url/vendor" className="dropdown-item">
                   <small>Add New Vendor</small>
                 </Link>
                 <hr className="mt-0 mb-0 text-primary" />
-                <Link to="/user/records" className="dropdown-item">
+                <Link to="/url/records" className="dropdown-item">
                   <small>Vendor Records</small>
+                </Link>
+                <hr className="mt-0 mb-0 text-primary" />
+                <Link to="/url/user_records" className="dropdown-item">
+                  <small>User Records</small>
                 </Link>
               </div>
             </div>
             {/* ////////////////////////////////////////////////////////// */}
 
-            <Link to="/user/add-coupon" className="nav-item nav-link">
+            <Link to="/url/add-coupon" className="nav-item nav-link">
               <i className="  far fa-file-alt me-2"></i>Add Coupon
             </Link>
 
             <Link
-              to="/user/supplier                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "
+              to="/url/supplier                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "
               className="nav-item nav-link "
             >
               <i className=" fa fa-th me-2"></i>Supplier

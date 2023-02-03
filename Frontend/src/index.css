@@ -34,9 +34,7 @@ td {
   margin-left: 500px;
 }
 
-.mr-l {
-  margin-left: 1500px;
-}
+
 
 .fa-google {
   background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
@@ -58,7 +56,7 @@ td {
   border: 1px solid rgb(187, 184, 184);
 }
 
-/* ///////////popup//////////// */
+/* -------------popup-start------------ */
 
 .popup {
   position: fixed;
@@ -78,3 +76,5 @@ td {
   border-radius: 10px;
   text-align: center;
 }
+
+/* ------------popup-end------------------- */

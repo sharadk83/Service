@@ -61,7 +61,7 @@ const EditMainServies = () => {
   useEffect(() => {
     async function getData() {
       try {
-        const Result = await axios.get(`http://localhost:4000/servies/${id}`);
+        const Result = await axios.get(``);
         setFormData(Result.data);
         console.log(Result.data);
       } catch (error) {

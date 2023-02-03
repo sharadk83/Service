@@ -75,7 +75,8 @@
     width: 220px;
     height: 100vh;
     overflow-y: auto;
-    background: #4e73df;
+    /* background: #4e73df; */
+    background: #283747 ;
     transition: 0.5s;
     z-index: 999;
 }
@@ -139,9 +140,11 @@
 
 .sidebar .navbar .navbar-nav .nav-link:hover,
 .sidebar .navbar .navbar-nav .nav-link.active {
-    color: var(--primary);
+    /* color: var(--primary); */
+    /* border-color: var(--primary); */
+    color: #283747 ;
     background: #FFFFFF;
-    border-color: var(--primary);
+    border-color: #283747 ;
 }
 
 .sidebar .navbar .navbar-nav .nav-link i {
@@ -150,7 +153,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #4e73df;
+    /* background: #4e73df; */
+    background: #283747 ;
     border-radius: 5px;
 }
 

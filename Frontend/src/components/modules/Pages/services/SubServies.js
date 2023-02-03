@@ -75,7 +75,7 @@ const SubServies = () => {
   const uniqueNames = [...new Set(Data.map((item) => item.formData.title))];
 
   const constant = {
-    SubServiesUrl: "http://localhost:4000/api/sub_service",
+    SubServiesUrl: "",
   };
 
   const handleSubmit = (e) => {

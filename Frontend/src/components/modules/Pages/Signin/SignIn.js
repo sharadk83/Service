@@ -3,10 +3,11 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, provider } from "../../../../firebase";
 import { signInWithPopup } from "firebase/auth";
+import NotificationAlert from "../../../../notification/index";
 
 const SignIn = () => {
   const navigate = useNavigate();
-
+  const [responseStatus, setResponseStatus] = useState("");
   const [formErrors, setFormError] = useState({});
   const [formData, setFormData] = useState({
     email: "",
@@ -14,6 +15,8 @@ const SignIn = () => {
   });
 
   const { email, password } = formData;
+  // -----------------------------Googel-Firebase-Login-------------------------------------
+
   const handleClick = () => {
     signInWithPopup(auth, provider).then((res) => {
       console.log(res.user);
@@ -22,6 +25,7 @@ const SignIn = () => {
       navigate("/dashboard");
     });
   };
+  // -----------------------------Custom-Validation-------------------------------------
 
   const validate = () => {
     let inputValid = formData;
@@ -45,20 +49,19 @@ const SignIn = () => {
     setFormError(formErrors);
     return isValid;
   };
+  // -----------------------------OnChange-event-------------------------------------
 
   const handleCheck = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  // -----------------------------URL-------------------------------------
 
   const constant = {
     userUrl: "http://localhost:4000/api/signin",
   };
-
+  // -----------------------------Submit-Button-------------------------------------
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("password", password);
     let payload = JSON.stringify({
       email: email,
       password: password,
@@ -72,16 +75,26 @@ const SignIn = () => {
         })
         .then((response) => {
           console.log(response.data);
-          if (response.data.message === "Successful login") {
-            localStorage.setItem("email", response.data.email);
+          if (response.data.msgType === "success") {
+            localStorage.setItem("user", response.data.user);
             navigate("/dashboard");
+          } else if (response.data.msgType === "error") {
+            setResponseStatus({
+              type: response.data.msgType,
+              message: response.data.message,
+            });
           }
+        })
+        .catch((err) => {
+          console.log(err);
         });
     }
   };
 
   return (
     <>
+      <NotificationAlert message={responseStatus} />
+
       <div className="container-xxl position-relative bg-light d-flex p-0">
         <div className="container-fluid">
           <div
@@ -143,11 +156,11 @@ const SignIn = () => {
                         Check me out
                       </label>
                     </div>
-                    <Link to="/reserpassword">Reset Password</Link>
+                    <Link to="/forget_password">Forget Password</Link>
                   </div>
                   <button
                     type="submit"
-                    className="btn btn-primary py-3 w-100 mb-4"
+                    className="btn btn-secondary py-3 w-100 mb-4"
                   >
                     Sign In
                   </button>
@@ -177,32 +190,3 @@ const SignIn = () => {
 };
 
 export default SignIn;
-
-// const handleSubmit = (e) => {
-//   e.preventDefault();
-//   if (validate()) {
-//     axios.post(`${constant.userUrl}`).then((response) => {
-//       console.log(response);
-
-//       let userExist = false;
-
-//       for (let i = 0; i < response.data.length; i++) {
-//         if (
-//           formData.email === response.data[i].email &&
-//           formData.password === response.data[i].password
-//         ) {
-//           navigate("/dashboard");
-//           userExist = true;
-//           localStorage.setItem("email", response.data[i].email);
-//           localStorage.setItem("user", response.data[i].first_name);
-//           localStorage.setItem("userImg", response.data[i].upload_file);
-//           break;
-//         }
-//       }
-
-//       if (!userExist) {
-//         alert("Wrong email or Password!", "danger");
-//       }
-//     });
-//   }
-// };

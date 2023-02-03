@@ -5,7 +5,7 @@ import Users from "../../Images/user.jpg";
 
 export const Topbar = () => {
   const navigate = useNavigate();
-  const users = localStorage.getItem("user");
+  const user = localStorage.getItem("user");
   // const photoURL = localStorage.getItem("photoURL");
   const ImgURL = localStorage.getItem("userImg");
   const [imageNotFound, setImageNotFound] = useState(false);
@@ -34,7 +34,7 @@ export const Topbar = () => {
           </h2>
         </a>
         <Link onClick={toggleSidebar} className="sidebar-toggler flex-shrink-0">
-          <i className="fa fa-bars"></i>
+          <i className="fa fa-bars text-secondary"></i>
         </Link>
 
         <form className="d-none d-md-flex ms-4">
@@ -44,7 +44,7 @@ export const Topbar = () => {
               type="search"
               placeholder="Search..."
             />
-            <button type="button" className="btn btn-primary">
+            <button type="button" className="btn btn-secondary">
               <i className="bi bi-search"></i>
             </button>
           </div>
@@ -164,10 +164,12 @@ export const Topbar = () => {
                 />
               )}
 
-              <span className="d-none d-lg-inline-flex">{users}</span>
+              <span className="d-none d-lg-inline-flex ">
+                <strong>{user}</strong>
+              </span>
             </a>
             <div className="dropdown-menu dropdown-menu-end  bg-white border rounded-0 rounded-bottom m-0">
-              <Link to="/user/profile" className="dropdown-item">
+              <Link to="/url/profile" className="dropdown-item">
                 My Profile
               </Link>
               <a href="/" className="dropdown-item">

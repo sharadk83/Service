@@ -82,7 +82,7 @@ const MainServies = () => {
     if (validate()) {
       const ImgData = new FormData();
       ImgData.append("File", imgPath);
-      let api = "http://localhost:4000/api/main_service";
+      let api = "";
       axios
         .post(api, {
           formData,

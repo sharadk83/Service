@@ -25,9 +25,9 @@ const VendorRecords = () => {
     pageNumbers.push(i);
   }
 
-  //-------------------------show data-----------------------------------
+  //------------------------Vendor-show data-----------------------------------
   const showdata = async () => {
-    let vendorList = "http://localhost:4000/api/users";
+    let vendorList = "http://localhost:4000/api/users/vendor";
     await axios.get(vendorList).then((res) => {
       SetDetails(res.data);
       // console.log(res.data);
@@ -47,7 +47,7 @@ const VendorRecords = () => {
     setIsOpen(true);
     let Data = `http://localhost:4000/api/users/data/${id}`;
     axios.get(Data).then((res) => {
-      // console.log(res.data[0].document_file);
+      console.log(res.data[0].document_file);
       setImgDocx(res.data[0].document_file);
     });
   };
@@ -74,7 +74,8 @@ const VendorRecords = () => {
                         <th scope="col">Image</th>
                         <th scope="col">Full Name</th>
                         <th scope="col">Email</th>
-                        <th scope="col">service charge</th>
+                        <th scope="col">Experience</th>
+                        <th scope="col">Service Charge</th>
                         <th scope="col">Document</th>
                         <th scope="col">Address</th>
                         <th scope="col">Number</th>
@@ -107,21 +108,26 @@ const VendorRecords = () => {
                               )}
                             </td>
                             <td>
-                              {e.first_name} {e.last_name}
+                              {e.first_name ? e.first_name : "N/A"}{" "}
+                              {e.last_name ? e.last_name : "N/A"}
                             </td>
-                            <td>{e.email}</td>
-                            <td>{e.service_charge} &#8377;</td>
+                            <td>{e.email ? e.email : "N/A"}</td>
+                            <td>{e.experience ? e.experience : "N/A"}</td>
+                            <td>
+                              {e.service_charge ? e.service_charge : "0.00"}
+                              &#8377;
+                            </td>
                             <td>
                               <Link onClick={() => handleGetPhoto(e.id)}>
-                                {e.document_type}
-                              </Link>{" "}
+                                {e.document_type ? e.document_type : "N/A"}
+                              </Link>
                             </td>
-                            <td>{e.address}</td>
-                            <td>{e.mobile_no}</td>
-                            <td>{e.city}</td>
+                            <td>{e.address ? e.address : "N/A"}</td>
+                            <td>{e.mobile_no ? e.mobile_no : "N/A"}</td>
+                            <td>{e.city ? e.city : "N/A"}</td>
                             <td>
                               <Link
-                                to={`/user/editvendor/${e.id}`}
+                                to={`/url/editvendor/${e.id}`}
                                 className="btn border border-2 border-primary mx-1 my-1"
                               >
                                 <i className="bi bi-pencil-fill"></i>
@@ -172,7 +178,12 @@ const VendorRecords = () => {
         {isOpen && (
           <div className="popup">
             <div className="popup-content">
-              <button onClick={() => setIsOpen(false)}>Close </button>
+              <button
+                className="btn btn-secondary"
+                onClick={() => setIsOpen(false)}
+              >
+                Close{" "}
+              </button>
               <img
                 src={`http://localhost:4000/uploads/${ImgDocx}`}
                 alt="img"

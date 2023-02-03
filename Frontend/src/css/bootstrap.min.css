@@ -2259,9 +2259,10 @@ progress {
 .form-control:focus {
     color: #757575;
     background-color: #fff;
-    border-color: #80ceff;
+    /* border-color: #80ceff; */
     outline: 0;
-    box-shadow: 0 0 0 .25rem rgba(0, 156, 255, 0.25)
+    /* box-shadow: 0 0 0 .25rem rgba(0, 156, 255, 0.25) */
+    box-shadow: 0 0 0 .20rem rgba(48, 48, 48, 0.25)
 }
 
 .form-control::-webkit-date-and-time-value {
@@ -2436,9 +2437,11 @@ textarea.form-control-lg {
 }
 
 .form-select:focus {
-    border-color: #80ceff;
+    /* border-color: #80ceff; */
     outline: 0;
-    box-shadow: 0 0 0 .25rem rgba(0, 156, 255, 0.25)
+    /* box-shadow: 0 0 0 .25rem rgba(0, 156, 255, 0.25) */
+    box-shadow: 0 0 0 .20rem rgba(48, 48, 48, 0.25)
+
 }
 
 .form-select[multiple],
@@ -2509,14 +2512,18 @@ textarea.form-control-lg {
 }
 
 .form-check-input:focus {
-    border-color: #80ceff;
+    /* border-color: #80ceff; */
     outline: 0;
-    box-shadow: 0 0 0 .25rem rgba(0, 156, 255, 0.25)
+    /* box-shadow: 0 0 0 .25rem rgba(0, 156, 255, 0.25) */
+    box-shadow: 0 0 0 .25rem rgba(48, 48, 48, 0.25)
+
 }
 
 .form-check-input:checked {
-    background-color: #009CFF;
-    border-color: #009CFF
+    /* background-color: #009CFF;
+    border-color: #009CFF */
+    background-color: #474848;
+    border-color: #3d3e3f
 }
 
 .form-check-input:checked[type="checkbox"] {

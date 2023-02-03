@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MainLayout from "../../../Layout/MainLayout";
 import { useNavigate, useLocation } from "react-router-dom";
+import NotificationAlert from "../../../../notification/index";
 
 const Vendor = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
+  const [responseStatus, setResponseStatus] = useState("");
   const [formErrors, setFormError] = useState({});
   const [imageFile, setImageFile] = useState("");
   const [document_file, setDocument_file] = useState("");
@@ -20,10 +21,11 @@ const Vendor = () => {
     city: "",
     mobile_no: "",
     service_charge: "",
+    experience: "",
+    area: "",
     password: "",
     confirm_password: "",
     document_type: "",
-    // user_role: "",
   });
 
   const {
@@ -34,6 +36,8 @@ const Vendor = () => {
     address,
     city,
     mobile_no,
+    experience,
+    area,
     service_charge,
     password,
     confirm_password,
@@ -103,6 +107,14 @@ const Vendor = () => {
       isValid = false;
       formErrors.mobile_no = "This is not a valid number";
     }
+    if (!inputValid.experience) {
+      isValid = false;
+      formErrors.experience = "Experience field is required!";
+    }
+    if (!inputValid.area) {
+      isValid = false;
+      formErrors.area = "Area field is required!";
+    }
     if (!inputValid.password) {
       isValid = false;
       formErrors.password = "Password field is required!";
@@ -149,9 +161,9 @@ const Vendor = () => {
     if (pathname.includes("vendor")) {
       setUserRole(2);
     }
-    // if (pathname.includes("user")) {
-    //   setUserRole(3);
-    // }
+    if (pathname.includes("user")) {
+      setUserRole(3);
+    }
   }, [pathname]);
   // -------------------URL------------------------------------------------------------
   const constant = {
@@ -169,6 +181,8 @@ const Vendor = () => {
     Data.append("address", address);
     Data.append("city", city);
     Data.append("mobile_no", mobile_no);
+    Data.append("experience", experience);
+    Data.append("area", area);
     Data.append("service_charge", service_charge);
     Data.append("document_type", document_type);
     Data.append("password", password);
@@ -181,8 +195,17 @@ const Vendor = () => {
             "Content-Type": "multipart/form-data",
           },
         });
-        console.log(res.data);
-        navigate("/user/records");
+        // console.log(res.data);
+        if (res.data.msgType === "success") {
+          setTimeout(() => {
+            navigate("/url/records");
+          }, 2000);
+        } else if (res.data.msgType === "error") {
+          setResponseStatus({
+            type: res.data.msgType,
+            message: res.data.message,
+          });
+        }
       } catch (err) {
         console.log(err);
       }
@@ -191,12 +214,13 @@ const Vendor = () => {
   return (
     <>
       <MainLayout>
+        <NotificationAlert message={responseStatus} />
         <input type="hidden" value={user_role} />
         <div className="container-fluid ">
           <div className="row h-100 align-items-center justify-content-center">
             <div className="col-sm-10">
               <div className="bg-white rounded h-100   ">
-                <h5 className="text-secondary my-4">Add New Vendor</h5>
+                <h5 className="text-secondary mt-3 mb-3">Add New Vendor</h5>
 
                 <form className="row g-3 " onSubmit={handleSubmit}>
                   <div className="col-md-4">
@@ -216,7 +240,7 @@ const Vendor = () => {
                     <label className="form-label">Last Name</label>
                     <input
                       type="text"
-                      className="form-control"
+                      className="form-control "
                       onChange={handleChange}
                       value={last_name}
                       name="last_name"
@@ -274,6 +298,55 @@ const Vendor = () => {
                       {formErrors.mobile_no}
                     </small>
                   </div>
+                  <div className="col-md-3">
+                    <label className="form-label">Experience</label>
+                    <select
+                      className="form-select"
+                      onChange={handleChange}
+                      name="experience"
+                      value={experience}
+                    >
+                      <option defaultValue="">Choose year..</option>
+                      <option value="1_year">1 year</option>
+                      <option value="2_year">2 year</option>
+                      <option value="3_year">3 year</option>
+                      <option value="4_year">4 year</option>
+                      <option value="5_year">5 year</option>
+                      <option value="6_year">6 year</option>
+                      <option value="7_year">7 year</option>
+                      <option value="8_year">8 year</option>
+                      <option value="9_year">9 year</option>
+                      <option value="10_year">10 year</option>
+                      <option value="10_year above">10 year above</option>
+                    </select>
+                    <small style={{ color: "red" }}>
+                      {formErrors.experience}
+                    </small>
+                  </div>
+                  <div className="col-md-3">
+                    <label className="form-label">Service charge</label>
+                    <input
+                      className="form-control"
+                      type="number"
+                      name="service_charge"
+                      onChange={handleChange}
+                      value={service_charge}
+                    />
+                    <small style={{ color: "red" }}>
+                      {formErrors.service_charge}
+                    </small>
+                  </div>
+                  <div className="col-md-6">
+                    <label className="form-label">Area</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="area"
+                      onChange={handleChange}
+                      value={area}
+                    />
+                    <small style={{ color: "red" }}>{formErrors.area}</small>
+                  </div>
                   <div className="col-md-6">
                     <label className="form-label">Password</label>
                     <input
@@ -302,25 +375,12 @@ const Vendor = () => {
                       {formErrors.confirm_password}
                     </small>
                   </div>
-                  <div className="col-md-4">
-                    <label className="form-label">Service charge</label>
-                    <input
-                      className="form-control"
-                      type="number"
-                      name="service_charge"
-                      onChange={handleChange}
-                      value={service_charge}
-                    />
-                    <small style={{ color: "red" }}>
-                      {formErrors.service_charge}
-                    </small>
-                  </div>
+
                   <div className="col-md-4">
                     <label className="form-label">Document</label>
 
                     <select
                       className="form-select"
-                      // onChange={(e) => handleDocxType(e)}
                       onChange={(e) => handleChange(e)}
                       name="document_type"
                       value={document_type}
@@ -334,7 +394,7 @@ const Vendor = () => {
                     </small>
                   </div>
                   {document_type === "AADHAAR CARD" && (
-                    <div className="col-md-4 my-5">
+                    <div className="col-md-3 mt-5">
                       <input
                         onChange={handleDocxFile}
                         name="file2"
@@ -347,9 +407,9 @@ const Vendor = () => {
                         className="lableFile"
                         htmlFor="contained-button-file_1"
                       >
-                        <span className="btn   btn-danger ">
+                        <span className="btn  border border-2 border-warning text-secondary ">
                           <i className="bi bi-file-arrow-up"></i> Upload
-                          Document...
+                          Document.........
                         </span>
                       </label>
                       <div>
@@ -360,7 +420,7 @@ const Vendor = () => {
                     </div>
                   )}
                   {document_type === "IDENTITY CARD" && (
-                    <div className="col-md-4 my-5">
+                    <div className="col-md-3 mt-5">
                       <input
                         onChange={handleDocxFile}
                         name="file2"
@@ -373,9 +433,9 @@ const Vendor = () => {
                         className="lableFile"
                         htmlFor="contained-button-file_2"
                       >
-                        <span className="btn  btn-danger  ">
+                        <span className="btn border border-2 border-success text-success   ">
                           <i className="bi bi-file-arrow-up"></i> Upload
-                          Document...
+                          Document.........
                         </span>
                       </label>
                       <div>
@@ -387,7 +447,7 @@ const Vendor = () => {
                   )}
 
                   {/* ---------image-upload---------- */}
-                  <div className="col-md-3 my-5 ">
+                  <div className="col-md-3 mt-5 ">
                     <input
                       onChange={handleFile}
                       name="file"
@@ -410,6 +470,24 @@ const Vendor = () => {
                       </small>
                     </div>
                   </div>
+
+                  {document_file ? (
+                    <div
+                      className="col-md-4 p-0 mx-5 mb-5"
+                      style={{ border: "dashed 2px rgb(105, 103, 103)" }}
+                    >
+                      <img
+                        width={307}
+                        height={175}
+                        className="p-1"
+                        src={URL.createObjectURL(document_file)}
+                        alt={document_file}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+
                   <div className="col ">
                     {imageFile ? (
                       <img
@@ -423,25 +501,9 @@ const Vendor = () => {
                       ""
                     )}
                   </div>
-                  {document_file ? (
-                    <div
-                      className="col"
-                      style={{ border: "dashed 2px rgb(105, 103, 103)" }}
-                    >
-                      <img
-                        width={340}
-                        height={175}
-                        className="border"
-                        src={URL.createObjectURL(document_file)}
-                        alt={document_file}
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                  <div className="col-md-12 my-1">
+                  <div className="col-md-12 ">
                     <button
-                      className="btn btn-primary "
+                      className="btn btn-primary mb-2"
                       type="submit"
                       style={{ width: "200px" }}
                     >

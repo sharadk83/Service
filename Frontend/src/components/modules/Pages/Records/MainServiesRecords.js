@@ -27,7 +27,7 @@ const MainServiesRecords = () => {
     showdata();
   }, []);
   const showdata = () => {
-    let Data = "http://localhost:4000/api/main_service";
+    let Data = "";
     axios.get(Data).then((res) => {
       SetDetails(res.data);
       // console.log(res.data);
@@ -35,7 +35,7 @@ const MainServiesRecords = () => {
   };
 
   const handleDelete = (id) => {
-    let Data = `http://localhost:4000/api/main_service/${id}`;
+    let Data = ``;
     axios.delete(Data).then((res) => {
       showdata();
     });

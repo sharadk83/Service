@@ -67,7 +67,7 @@ const Library = () => {
           <div className="my-2 mx-1">
             <button className="btn btn-light border">Filter</button>
           </div>
-          <div style={{ marginLeft: "250px" }}>
+          <div style={{ marginLeft: "250px" }}  >
             <div className="my-2 mx-2 d-flex align-items-center  ">
               <label className="form-label mx-2">Search</label>
               <input className="form-control rounded-1"></input>

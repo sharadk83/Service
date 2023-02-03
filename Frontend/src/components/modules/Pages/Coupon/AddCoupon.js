@@ -25,7 +25,7 @@ const AddCoupon = () => {
       category: category,
       percentage: percentage,
     };
-    let apiUrl = "http://localhost:5000/coupon";
+    let apiUrl = "";
     if (validate()) {
       axios
         .post(apiUrl, { payload })
