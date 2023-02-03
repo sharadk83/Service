@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MainLayout from "../../../Layout/MainLayout";
 import { useNavigate, useParams } from "react-router-dom";
+import NotificationAlert from "../../../../notification/index"
 
 const EditVendor = () => {
   const navigate = useNavigate();
@@ -133,9 +134,13 @@ const EditVendor = () => {
         const res = await axios.put(`${constant.vendorUrl}`, payload);
         console.log(res.data);
         if (res.data.msgType === "success") {
+          setResponseStatus({
+            type: res.data.msgType,
+            message: res.data.message,
+          });
           setTimeout(() => {
             navigate("/url/records");
-          }, 2000);
+          }, 1000);
         } else if (res.data.msgType === "error") {
           setResponseStatus({
             type: res.data.msgType,
@@ -151,7 +156,9 @@ const EditVendor = () => {
     <>
       {/* {JSON.stringify(formData)} */}
       <MainLayout>
-        {responseStatus}
+    
+        <NotificationAlert message={responseStatus} />
+
         <div className="container-fluid ">
           <div className="row h-100 align-items-center justify-content-center">
             <div className="col-sm-10">

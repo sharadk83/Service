@@ -199,7 +199,7 @@ const Vendor = () => {
         if (res.data.msgType === "success") {
           setTimeout(() => {
             navigate("/url/records");
-          }, 2000);
+          }, 1000);
         } else if (res.data.msgType === "error") {
           setResponseStatus({
             type: res.data.msgType,

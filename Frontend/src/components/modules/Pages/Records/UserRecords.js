@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MainLayout from "../../../Layout/MainLayout";
 import { Link } from "react-router-dom";
+import NotificationAlert from "../../../../notification/index"
 
 const UserRecords = () => {
   // const [status, setStatus] = useState(false);
   const [details, SetDetails] = useState([]);
+  const [responseStatus, setResponseStatus] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage] = useState(4);
@@ -38,7 +40,19 @@ const UserRecords = () => {
   const handleDelete = (id) => {
     let Data = `http://localhost:4000/api/users/${id}`;
     axios.delete(Data).then((res) => {
-      showdata();
+      if (res.data.msgType === "success") {
+        setResponseStatus({
+          type: res.data.msgType,
+          message: res.data.message,
+        });
+        showdata();
+      } else if (res.data.msgType === "error") {
+        setResponseStatus({
+          type: res.data.msgType,
+          message: res.data.message,
+        });
+      }
+
     });
   };
 
@@ -49,6 +63,8 @@ const UserRecords = () => {
     <>
       <MainLayout>
         {/* {JSON.stringify(getdata)} */}
+        <NotificationAlert message={responseStatus} />
+
         <div className="container-fluid  bg-white">
           <div className="col-12">
             <div className=" rounded h-100  ">

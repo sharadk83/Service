@@ -3,8 +3,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import MainLayout from "../../../Layout/MainLayout";
 import ImgNot from "../../../../Images/not-found.png";
+import NotificationAlert from "../../../../notification/index";
 
 const VendorRecords = () => {
+  const [responseStatus, setResponseStatus] = useState("");
+
   // const [status, setStatus] = useState(false);
   const [details, SetDetails] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +43,18 @@ const VendorRecords = () => {
   const handleDelete = (id) => {
     let Data = `http://localhost:4000/api/users/${id}`;
     axios.delete(Data).then((res) => {
-      showdata();
+      if (res.data.msgType === "success") {
+        setResponseStatus({
+          type: res.data.msgType,
+          message: res.data.message,
+        });
+        showdata();
+      } else if (res.data.msgType === "error") {
+        setResponseStatus({
+          type: res.data.msgType,
+          message: res.data.message,
+        });
+      }
     });
   };
   const handleGetPhoto = (id) => {
@@ -59,6 +73,8 @@ const VendorRecords = () => {
     <>
       <MainLayout>
         {/* {JSON.stringify(getdata)} */}
+        <NotificationAlert message={responseStatus} />
+
         <div className="container-fluid  bg-white">
           <div className="col-12">
             <div className=" rounded h-100  ">

@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MainLayout from "../../../Layout/MainLayout";
 import { useNavigate, useParams } from "react-router-dom";
+import NotificationAlert from "../../../../notification/index";
 
 const EditUser = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [responseStatus, setResponseStatus] = useState("");
 
   const [formErrors, setFormError] = useState({});
   const [formData, setFormData] = useState({
@@ -91,23 +93,23 @@ const EditUser = () => {
   };
   // ---------------------------User-getData-call-function-------------------------------------
 
-  useEffect(() => {
-    const getData = () => {
-      const options = {
-        method: "GET",
-        url: `http://localhost:4000/api/users/data/${id}`,
-      };
-      axios
-        .request(options)
-        .then(function (response) {
-          setFormData(...response.data);
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
+  const getData = () => {
+    const options = {
+      method: "GET",
+      url: `http://localhost:4000/api/users/data/${id}`,
     };
+    axios
+      .request(options)
+      .then((response) => {
+        setFormData(...response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  useEffect(() => {
     getData();
-  }, [id]);
+  }, []);
   // -----------------------------URL-----------------------------------------------
 
   const constant = {
@@ -128,15 +130,33 @@ const EditUser = () => {
       address: address,
     };
     if (validate()) {
-      const res = await axios.put(`${constant.vendorUrl}`, payload);
-      console.log(res.data);
-      navigate("/url/user_records");
+      try {
+        const res = await axios.put(`${constant.vendorUrl}`, payload);
+        console.log(res.data);
+        if (res.data.msgType === "success") {
+          setResponseStatus({
+            type: res.data.msgType,
+            message: res.data.message,
+          });
+          setTimeout(() => {
+            navigate("/url/user_records");
+          }, 1000);
+        } else if (res.data.msgType === "error") {
+          setResponseStatus({
+            type: res.data.msgType,
+            message: res.data.message,
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
   return (
     <>
       {/* {JSON.stringify(formData)} */}
       <MainLayout>
+        <NotificationAlert message={responseStatus} />
         <div className="container-fluid ">
           <div className="row h-100 align-items-center justify-content-center">
             <div className="col-sm-10">

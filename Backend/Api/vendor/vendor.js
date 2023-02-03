@@ -144,8 +144,17 @@ router.get("/data/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
   conn.query("DELETE FROM user WHERE id = ?", id, (error, result) => {
-    if (error) throw error;
-    res.send(result);
+    if (error) {
+      res.send({
+        msgType: "error",
+        message: "Check felds...",
+      });
+    } else {
+      res.send({
+        msgType: "success",
+        message: "Data Delete Successfully",
+      });
+    }
   });
 });
 // -----------------Update-All-Data---------------------------------------------------------

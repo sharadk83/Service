@@ -21,7 +21,7 @@ const Sidebar = () => {
         <nav className="navbar ">
           <Link to="/" className="navbar-brand mx-4 mb-3">
             <h5 className="text-white">
-              <i className="fa fa-hashtag me-2"></i>one
+              <i className="fa fa-hashtag me-2"></i>Dashmin
             </h5>
           </Link>
           <div className="d-flex align-items-center ms-4 mb-4">
