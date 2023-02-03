@@ -6,10 +6,7 @@ const Test = () => {
     <>
       <MainLayout>
         <div class="alert alert-info" role="alert">
-<center>
-A simple info alert—check it out!
-
-</center>
+          <center>A simple info alert—check it out!</center>
         </div>
       </MainLayout>
     </>
