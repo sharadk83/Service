@@ -20,7 +20,7 @@ const SignIn = () => {
   const handleClick = () => {
     signInWithPopup(auth, provider).then((res) => {
       console.log(res.user);
-      localStorage.setItem("email", res.user.displayName);
+      localStorage.setItem("user", res.user.displayName);
       localStorage.setItem("photoURL", res.user.photoURL);
       navigate("/dashboard");
     });

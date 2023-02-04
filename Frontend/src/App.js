@@ -20,9 +20,10 @@ import AddNewPages from "./components/modules/Frontend/AddNewPages";
 import Library from "./components/modules/Media/Library";
 import AddNewLibrary from "./components/modules/Media/AddNewLibrary";
 import ForgetPassword from "./components/modules/Pages/Signin/ForgetPassword/ForgetPassword";
-import Test from "./Test";
 import UserRecords from "./components/modules/Pages/Records/UserRecords";
 import EditUser from "./components/modules/Pages/Users/EditUser";
+import Test from "./Test";
+import PageNotFound from "./components/PageNotFound";
 
 const App = () => {
   // const users = localStorage.getItem("email");
@@ -31,6 +32,7 @@ const App = () => {
     <>
       <Routes>
         <Route exact path="/test" element={<Test />} />
+        <Route exact path="/page_not_found" element={<PageNotFound />} />
         <Route exact path="/" element={<SignIn />} />
         <Route exact path="/forget_password" element={<ForgetPassword />} />
         <Route exact path="/dashboard" element={<Dashboard />} />
@@ -42,8 +44,13 @@ const App = () => {
           <Route exact path="supplier" element={<Supplier />} />
           <Route exact path="mainservies" element={<MainServies />} />
           <Route exact path="subservies" element={<SubServies />} />
-          <Route exact path="edit_user/:id" element={< EditUser/>} />
+          <Route exact path="edit_user/:id" element={<EditUser />} />
           <Route exact path="editvendor/:id" element={<Editvendor />} />
+          <Route exact path="add-coupon" element={<AddCoupon />} />
+          <Route exact path="all-pages" element={<AllPages />} />
+          <Route exact path="add-new-page" element={<AddNewPages />} />
+          <Route exact path="library" element={<Library />} />
+          <Route exact path="add-new-library" element={<AddNewLibrary />} />
           <Route
             exact
             path="edit_main_servies/:id"
@@ -64,11 +71,6 @@ const App = () => {
             path="sub_servies_record"
             element={<SubServiesRecords />}
           />
-          <Route exact path="add-coupon" element={<AddCoupon />} />
-          <Route exact path="all-pages" element={<AllPages />} />
-          <Route exact path="add-new-page" element={<AddNewPages />} />
-          <Route exact path="library" element={<Library />} />
-          <Route exact path="add-new-library" element={<AddNewLibrary />} />
         </Route>
       </Routes>
     </>

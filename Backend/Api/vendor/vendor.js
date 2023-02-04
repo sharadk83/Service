@@ -157,7 +157,7 @@ router.delete("/:id", (req, res) => {
     }
   });
 });
-// -----------------Update-All-Data---------------------------------------------------------
+// -----------------Update-Data---------------------------------------------------------
 router.put("/:id", (req, res) => {
   let date = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
   const sql = `UPDATE user SET first_name = ?, last_name = ?,  address = ?, mobile_no = ?, service_charge = ?, area = ?, experience = ? , city = ?,gender=?, state=?, country=? ,update_date = ?  WHERE id = ?`;
