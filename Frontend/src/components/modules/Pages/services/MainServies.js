@@ -129,7 +129,7 @@ const MainServies = () => {
                   className="row g-3 needs-validation"
                   onSubmit={handleSubmit}
                 >
-                  <div className="col-md-4 m-0" >
+                  <div className="col-md-4 m-0">
                     <div className="form-floating mb-3">
                       <input
                         type="text"

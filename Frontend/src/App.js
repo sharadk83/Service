@@ -26,14 +26,13 @@ import Test from "./Test";
 import PageNotFound from "./components/PageNotFound";
 
 const App = () => {
-  // const users = localStorage.getItem("email");
 
   return (
     <>
       <Routes>
         <Route exact path="/test" element={<Test />} />
-        <Route exact path="/page_not_found" element={<PageNotFound />} />
         <Route exact path="/" element={<SignIn />} />
+        <Route exact path="/page_not_found" element={<PageNotFound />} />
         <Route exact path="/forget_password" element={<ForgetPassword />} />
         <Route exact path="/dashboard" element={<Dashboard />} />
         <Route exact path="/url" element={<PrivateRoute />}>

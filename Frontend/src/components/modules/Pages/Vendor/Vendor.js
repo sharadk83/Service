@@ -3,6 +3,7 @@ import axios from "axios";
 import MainLayout from "../../../Layout/MainLayout";
 import { useNavigate, useLocation } from "react-router-dom";
 import NotificationAlert from "../../../../notification/index";
+import Multiselect from "multiselect-react-dropdown";
 
 const Vendor = () => {
   const navigate = useNavigate();
@@ -12,7 +13,10 @@ const Vendor = () => {
   const [imageFile, setImageFile] = useState("");
   const [document_file, setDocument_file] = useState("");
   const [user_role, setUserRole] = useState("");
+  const [Data, SetData] = useState([]);
+  const [service_name, SetService_name] = useState("");
 
+  console.log(service_name);
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -41,12 +45,12 @@ const Vendor = () => {
     service_charge,
     password,
     confirm_password,
-    // user_role,
   } = formData;
   // ------------------Onchange-event-function---------------------------------------
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log(e.target.value);
   };
   const handleFile = (e) => {
     const Imgfile = e.target.files[0];
@@ -59,6 +63,7 @@ const Vendor = () => {
     // console.log(docxfile);
   };
 
+ 
   // -------------------custom-validation--------------------------------------------
 
   const validate = () => {
@@ -149,6 +154,10 @@ const Vendor = () => {
       isValid = false;
       formErrors.imageFile = "File field is required!";
     }
+    if (!service_name) {
+      isValid = false;
+      formErrors.service_name = "Service Name field is required!";
+    }
     setFormError(formErrors);
     return isValid;
   };
@@ -168,8 +177,23 @@ const Vendor = () => {
   // -------------------URL------------------------------------------------------------
   const constant = {
     vendorUrl: "http://localhost:4000/api/users",
+    getServiceUrl: `http://localhost:4000/api/main_service`,
   };
+  // -----------------------------------get-Services-Name-Data---------------------------------------------------
+
+  const showdata = () => {
+    axios.get(`${constant.getServiceUrl}`).then((res) => {
+      SetData(res.data);
+      // console.log(res.data);
+    });
+  };
+  const uniqueNames = [...new Set(Data.map((item) => item.service_name))];
+
+  useEffect(() => {
+    showdata();
+  }, []);
   // -------------------Submit-data-function-------------------------------------------
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const Data = new FormData();
@@ -187,6 +211,7 @@ const Vendor = () => {
     Data.append("document_type", document_type);
     Data.append("password", password);
     Data.append("user_role", user_role);
+    Data.append("service_name", service_name);
 
     if (validate()) {
       try {
@@ -324,6 +349,26 @@ const Vendor = () => {
                     </small>
                   </div>
                   <div className="col-md-3">
+                    <label className="form-label">Services</label>
+
+                    <Multiselect
+                      isObject={false}
+                      options={uniqueNames}
+                      selectedValues={service_name}
+                      onSelect={(e) => {
+                        SetService_name(e);
+                      }}
+                      onRemove={(e) => {
+                        SetService_name(e);
+                      }}
+                      showCheckbox
+                    />
+
+                    <small style={{ color: "red" }}>
+                      {formErrors.service_name}
+                    </small>
+                  </div>
+                  <div className="col-md-3">
                     <label className="form-label">Service charge</label>
                     <input
                       className="form-control"
@@ -336,7 +381,7 @@ const Vendor = () => {
                       {formErrors.service_charge}
                     </small>
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-3">
                     <label className="form-label">Area</label>
                     <input
                       className="form-control"

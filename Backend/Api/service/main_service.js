@@ -101,17 +101,43 @@ router.delete("/:id", (req, res) => {
   });
 });
 // -----------------Update-Data---------------------------------------------------------
-router.put("/:id", (req, res) => {
-  console.log(req.body);
+
+//! Use of Multer
+var UpdateStorage = multer.diskStorage({
+  destination: (req, file, callBack) => {
+    callBack(null, "././public/Service"); // image-directory name
+  },
+  filename: (req, file, callBack) => {
+    callBack(null, `image-${Date.now()}.${file.originalname}`);
+    // callBack(null, req.body.first_name + '-' + file.originalname);
+  },
+});
+// img filter
+const UpdateImage = (req, file, callback) => {
+  if (file.mimetype.startsWith("image")) {
+    callback(null, true);
+  } else {
+    callback(null.Error("only Image is allowd"));
+  }
+};
+
+var Updateupload = multer({
+  storage: UpdateStorage,
+  fileFilter: UpdateImage,
+});
+
+router.put("/:id", Updateupload.single("file"), (req, res) => {
+  // console.log(req.body);
+
   // let date = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
-  const sql = `UPDATE main_service SET service_name = ?, title = ?,  description = ?, start_date = ?, end_date = ?  WHERE id = ?`;
+  const sql = `UPDATE main_service SET service_name = ?, title = ?,  description = ?, start_date = ?, end_date = ?,img_path=? WHERE id = ?`;
   const values = [
     req.body.service_name,
     req.body.title,
     req.body.description,
     req.body.start_date,
     req.body.end_date,
-    // req.file. filename,
+    req.file.filename,
     req.params.id,
   ];
 

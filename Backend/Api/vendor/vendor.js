@@ -51,6 +51,7 @@ router.post("/", uploadMultiple, (req, res) => {
     area,
     experience,
     service_charge,
+    service_name,
     document_type,
     password,
   } = req.body;
@@ -89,6 +90,7 @@ router.post("/", uploadMultiple, (req, res) => {
       password: password,
       upload_file: file_1,
       document_file: file_2,
+      service_name: service_name,
       // password: hash,
     },
     (err, result) => {
@@ -159,8 +161,10 @@ router.delete("/:id", (req, res) => {
 });
 // -----------------Update-Data---------------------------------------------------------
 router.put("/:id", (req, res) => {
+  console.log(req.body);
+
   let date = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
-  const sql = `UPDATE user SET first_name = ?, last_name = ?,  address = ?, mobile_no = ?, service_charge = ?, area = ?, experience = ? , city = ?,gender=?, state=?, country=? ,update_date = ?  WHERE id = ?`;
+  const sql = `UPDATE user SET first_name = ?, last_name = ?,  address = ?, mobile_no = ?, service_charge = ?, area = ?, experience = ? , city = ?,gender=?, state=?, country=? ,service_name=? ,update_date = ?   WHERE id = ?`;
   const values = [
     req.body.first_name,
     req.body.last_name,
@@ -173,6 +177,7 @@ router.put("/:id", (req, res) => {
     req.body.gender,
     req.body.state,
     req.body.country,
+    req.body.service_name,
     date,
     req.params.id,
   ];
@@ -184,7 +189,6 @@ router.put("/:id", (req, res) => {
         message: "Check felds...",
       });
     } else {
-      // res.send(result);
       res.send({
         msgType: "success",
         message: "Data Update Successfully",

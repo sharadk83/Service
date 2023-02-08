@@ -97,11 +97,11 @@ const SubServies = () => {
   return (
     <>
       <MainLayout>
-        <div className="container-fluid pt-4 ">
+        <div className="container-fluid ">
           <div className="row h-100 align-items-center justify-content-center">
             <div className="col">
-              <h4 className="text-primary">Sub-Servies</h4>
-              <div className="bg-white border border-2 rounded h-100 p-4  my-3">
+              <h4 className="text-primary mt-3">Sub-Servies</h4>
+              <div className="bg-white  rounded h-100 p-4  ">
                 <form
                   className="row g-3 needs-validation"
                   onSubmit={handleSubmit}
@@ -160,7 +160,7 @@ const SubServies = () => {
                     </small>
                   </div>
 
-                  <div className="col-md-3 my-5">
+                  <div className="col-md-3 mt-5">
                     <input
                       className="form-control"
                       type="file"

@@ -1,3 +1,17 @@
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #283747;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c0bcbc;
+  border-radius: 8px;
+  background-clip: content-box;
+}
+
 table,
 thead,
 tr,
@@ -17,15 +31,17 @@ td {
 
 /* ------------------------------ */
 .ul-item {
+  width: 150px;
   background-color: white;
   margin-top: 10px;
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px;
   text-align: center;
   align-items: center;
-  font-size: 16px;
+  font-size: 17px;
 
 }
+
 /* -------------------------------------- */
 .fa-google {
   background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;

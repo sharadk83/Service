@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MainLayout from "../../../Layout/MainLayout";
 import { useNavigate, useParams } from "react-router-dom";
-import NotificationAlert from "../../../../notification/index"
+import NotificationAlert from "../../../../notification/index";
+import Multiselect from "multiselect-react-dropdown";
 
 const EditVendor = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [responseStatus, setResponseStatus] = useState("");
-
+  const [Data, SetData] = useState([]);
   const [formErrors, setFormError] = useState({});
   const [formData, setFormData] = useState({
     first_name: "",
@@ -21,6 +22,7 @@ const EditVendor = () => {
     experience: "",
     area: "",
   });
+  const [service_name, SetService_name] = useState("");
 
   const {
     first_name,
@@ -88,6 +90,10 @@ const EditVendor = () => {
       isValid = false;
       formErrors.area = "Area field is required!";
     }
+    if (!service_name) {
+      isValid = false;
+      formErrors.service_name = "Service Name field is required!";
+    }
     setFormError(formErrors);
     return isValid;
   };
@@ -97,6 +103,7 @@ const EditVendor = () => {
   const constant = {
     vendorUrl: `http://localhost:4000/api/users/${id}`,
     getVendorUrl: `http://localhost:4000/api/users/data/${id}`,
+    getServiceUrl: `http://localhost:4000/api/main_service`,
   };
 
   // ---------------------------User-getData-call-function-------------------------------------
@@ -105,6 +112,8 @@ const EditVendor = () => {
     await axios
       .get(`${constant.getVendorUrl}`)
       .then((response) => {
+        console.log(response.data);
+
         setFormData(...response.data);
       })
       .catch((error) => {
@@ -115,6 +124,19 @@ const EditVendor = () => {
     getData();
   }, []);
 
+  // -----------------------------------get-Services-Name-Data---------------------------------------------------
+
+  const showdata = () => {
+    axios.get(`${constant.getServiceUrl}`).then((res) => {
+      SetData(res.data);
+      // console.log(res.data);
+    });
+  };
+  const uniqueNames = [...new Set(Data.map((item) => item.service_name))];
+
+  useEffect(() => {
+    showdata();
+  }, []);
   // -----------------------------User-Data-Edit-Function-----------------------------------------------
 
   const handleEdit = async (e) => {
@@ -128,6 +150,7 @@ const EditVendor = () => {
       service_charge: service_charge,
       experience: experience,
       area: area,
+      service_name: service_name,
     };
     if (validate()) {
       try {
@@ -156,7 +179,6 @@ const EditVendor = () => {
     <>
       {/* {JSON.stringify(formData)} */}
       <MainLayout>
-    
         <NotificationAlert message={responseStatus} />
 
         <div className="container-fluid ">
@@ -260,6 +282,26 @@ const EditVendor = () => {
                     </select>
                     <small style={{ color: "red" }}>
                       {formErrors.experience}
+                    </small>
+                  </div>
+                  <div className="col-md-3">
+                    <label className="form-label">Services</label>
+
+                    <Multiselect
+                      isObject={false}
+                      options={uniqueNames}
+                      selectedValues={service_name}
+                      onSelect={(e) => {
+                        SetService_name(e);
+                      }}
+                      onRemove={(e) => {
+                        SetService_name(e);
+                      }}
+                      showCheckbox
+                    />
+
+                    <small style={{ color: "red" }}>
+                      {formErrors.service_name}
                     </small>
                   </div>
                   <div className="col-md-4">
