@@ -27,7 +27,7 @@ const MainServies = () => {
     let inputValid = formData;
     let formErrors = {};
     let isValid = true;
-    const textRegex = /^[a-zA-Z]+$/;
+    let textRegex = /^[a-zA-Z\s]+$/;
 
     if (!inputValid.service_name) {
       isValid = false;

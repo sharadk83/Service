@@ -13,7 +13,7 @@ const VendorRecords = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [ImgDocx, setImgDocx] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [dataPerPage] = useState(4);
+  const [dataPerPage] = useState(3);
   // Get current data
   const indexOfLastData = currentPage * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;

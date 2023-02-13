@@ -16,7 +16,6 @@ const Vendor = () => {
   const [Data, SetData] = useState([]);
   const [service_name, SetService_name] = useState("");
 
-  console.log(service_name);
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -63,7 +62,6 @@ const Vendor = () => {
     // console.log(docxfile);
   };
 
- 
   // -------------------custom-validation--------------------------------------------
 
   const validate = () => {
@@ -236,10 +234,12 @@ const Vendor = () => {
       }
     }
   };
+
   return (
     <>
       <MainLayout>
         <NotificationAlert message={responseStatus} />
+
         <input type="hidden" value={user_role} />
         <div className="container-fluid ">
           <div className="row h-100 align-items-center justify-content-center">
@@ -350,7 +350,6 @@ const Vendor = () => {
                   </div>
                   <div className="col-md-3">
                     <label className="form-label">Services</label>
-
                     <Multiselect
                       isObject={false}
                       options={uniqueNames}

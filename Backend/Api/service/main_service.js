@@ -75,7 +75,7 @@ router.get("/", (req, res) => {
 router.get("/data/:id", (req, res) => {
   const id = req.params.id;
   conn.query("SELECT * FROM main_service WHERE id = ?", id, (error, result) => {
-    console.log(result);
+    // console.log(result);
     if (error) {
       res.send("error");
     } else {

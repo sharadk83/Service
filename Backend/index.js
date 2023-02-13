@@ -7,6 +7,7 @@ const port = 4000;
 // ------------------Routs-------------------
 const signinRoute = require("./Api/signin/signin");
 const forget_pass = require("./Api/signin/forget_password");
+const user_join = require("./Api/Mails/user_join");
 const vendorRoute = require("./Api/vendor/vendor");
 const mainServiceRoute = require("./Api/service/main_service");
 // const couponRoute = require("./Api/add_coupon/add_coupon");
@@ -23,6 +24,7 @@ app.use(cors());
 app.use("/api/signin", signinRoute);
 app.use("/api/forget_pwd", forget_pass);
 app.use("/api/users", vendorRoute);
+app.use("/api/user_join", user_join);
 app.use("/api/main_service", mainServiceRoute);
 // app.use("/api/sub_service", subServiceRoute);
 // app.use("/api/coupon", couponRoute);

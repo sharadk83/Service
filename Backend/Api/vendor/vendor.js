@@ -35,7 +35,7 @@ var uploadMultiple = upload.fields([{ name: "file" }, { name: "file2" }]);
 
 // ---------------Admin/User-Post-Data------------------------------------------------------------
 router.post("/", uploadMultiple, (req, res) => {
-  // console.log(req.body);
+  console.log(req.body);
 
   const {
     user_role,
@@ -162,6 +162,7 @@ router.delete("/:id", (req, res) => {
 // -----------------Update-Data---------------------------------------------------------
 router.put("/:id", (req, res) => {
   console.log(req.body);
+  // console.log( ...req.body.service_name);
 
   let date = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
   const sql = `UPDATE user SET first_name = ?, last_name = ?,  address = ?, mobile_no = ?, service_charge = ?, area = ?, experience = ? , city = ?,gender=?, state=?, country=? ,service_name=? ,update_date = ?   WHERE id = ?`;
@@ -193,6 +194,7 @@ router.put("/:id", (req, res) => {
         msgType: "success",
         message: "Data Update Successfully",
       });
+      // console.log(res);
     }
   });
 });
