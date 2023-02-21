@@ -15,10 +15,42 @@ const transporter = nodemailer.createTransport({
     // pass: process.env.PASS,
   },
 });
+
+// -----------------Get-Data-ServiceName------------------------------------------------------
+
+router.get("/", (req, res) => {
+  connection.query("select * from contact_details ", (err, result) => {
+    if (err) {
+      res.send("error");
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+// -----------------Get-inquiry-details-------------------------------------------------------
+
+router.get("/:service_name", (req, res) => {
+  const service_name = req.params.service_name;
+  // console.log(req.params.service_name);
+
+  connection.query(
+    "SELECT * FROM contact_details WHERE service_name = ?",
+    service_name,
+    (err, result) => {
+      if (err) {
+        res.send("error");
+      } else {
+        res.send(result);
+        // console.log(result);
+      }
+    }
+  );
+});
 // --------------------------------Post------------------------------------
 router.post("/", (req, res) => {
-  const { firstname, lastname, email, address, mobile, purpose } = req.body;
-  console.log(req.body);
+  const { firstname, lastname, email, address, mobile, purpose, service_name } =
+    req.body;
 
   let date = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
   connection.query(
@@ -30,6 +62,7 @@ router.post("/", (req, res) => {
       mobile: mobile,
       address: address,
       purpose: purpose,
+      service_name: service_name,
       date: date,
     },
     (err, result) => {
@@ -39,6 +72,8 @@ router.post("/", (req, res) => {
           message: "Check felds.....",
         });
       } else {
+        console.log(result);
+
         // -----------------------------Admin-send-Email-----------------------------
         const mailOptions = {
           from: "ayusharya0506@gmail.com",
@@ -97,35 +132,29 @@ router.post("/", (req, res) => {
               </style>
             </head>
             <body>
-              <h1>Your Recent Order</h1>
+              <h1>Your Recent Details</h1>
               <table>
                 <thead>
                   <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Purpose</th>
+                    <th>Service Name</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Product 1</td>
-                    <td>$10</td>
-                    <td>2</td>
-                    <td>$20</td>
+                    <td>${firstname}</td>
+                    <td>${lastname}</td>
+                    <td>${email}</td>
+                    <td>${address}</td>
+                    <td>${purpose}</td>
+                    <td>${service_name}</td>
+                   
                   </tr>
-                  <tr>
-                    <td>Product 2</td>
-                    <td>$15</td>
-                    <td>1</td>
-                    <td>$15</td>
-                  </tr>
-                  <tr>
-                    <td>Product 3</td>
-                    <td>$20</td>
-                    <td>3</td>
-                    <td>$60</td>
-                  </tr>
+              
                 </tbody>
               </table>
               <a href="#" class="btn">View Order Details</a>
@@ -213,7 +242,7 @@ router.post("/", (req, res) => {
 
         res.send({
           msgType: "success",
-          message: "Data send Successfully",
+          message: "Thanku for contact details",
         });
       }
     }

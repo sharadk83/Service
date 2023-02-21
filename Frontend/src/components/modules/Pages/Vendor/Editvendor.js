@@ -132,7 +132,6 @@ const EditVendor = () => {
       // console.log(res.data);
     });
   };
-  const uniqueId = [...new Set(Data.map((item) => item.id))];
   const uniqueNames = [...new Set(Data.map((item) => item.service_name))];
 
   useEffect(() => {
@@ -154,18 +153,6 @@ const EditVendor = () => {
       area: area,
       service_name: service_name,
     };
-
-    // const Data = new FormData();
-    // Data.append("first_name", first_name);
-    // Data.append("last_name", last_name);
-    // Data.append("address", address);
-    // Data.append("city", city);
-    // Data.append("mobile_no", mobile_no);
-    // Data.append("service_charge", service_charge);
-    // Data.append("experience", experience);
-    // Data.append("area", area);
-    // Data.append("service_name", service_name);
-
     if (validate()) {
       try {
         const res = await axios.put(`${constant.vendorUrl}`, payload, {
@@ -307,9 +294,8 @@ const EditVendor = () => {
                     <label className="form-label">Services</label>
 
                     <Multiselect
-                      // isObject={false}
-                      displayValue="service_name"
-                      options={Data}
+                      isObject={false}
+                      options={uniqueNames}
                       selectedValues={service_name}
                       onSelect={(e) => {
                         SetService_name(e);

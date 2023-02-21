@@ -56,6 +56,12 @@ const Sidebar = () => {
             <Link to="/dashboard" className="nav-item nav-link ">
               <i className="fa fa-tachometer-alt me-2"></i>Dashboard
             </Link>
+            <Link
+              to="/url/inquiry-index                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "
+              className="nav-item nav-link "
+            >
+              <i className="bi bi-telephone  me-2"></i>Inquiry Record
+            </Link>
             {/* <hr className="mt-0 mb-0 text-white"/> */}
             <div className="nav-item  dropdown ">
               <a

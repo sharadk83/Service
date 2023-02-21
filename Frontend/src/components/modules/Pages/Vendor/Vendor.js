@@ -239,7 +239,6 @@ const Vendor = () => {
     <>
       <MainLayout>
         <NotificationAlert message={responseStatus} />
-
         <input type="hidden" value={user_role} />
         <div className="container-fluid ">
           <div className="row h-100 align-items-center justify-content-center">

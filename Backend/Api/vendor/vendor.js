@@ -35,7 +35,7 @@ var uploadMultiple = upload.fields([{ name: "file" }, { name: "file2" }]);
 
 // ---------------Admin/User-Post-Data------------------------------------------------------------
 router.post("/", uploadMultiple, (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
 
   const {
     user_role,
@@ -123,6 +123,25 @@ router.get("/vendor", (req, res) => {
     }
   });
 });
+// -----------------service-acording-vendor-Data------------------------------------------------------
+
+router.get("/service_vendor_list/:service_name", (req, res) => {
+  const service_name = req.params.service_name;
+  // console.log(req.params.service_name);
+
+  conn.query(
+    `SELECT * FROM user WHERE service_name LIKE '%${service_name}%'`,
+    (err, result) => {
+      // console.log(result);
+
+      if (err) {
+        res.send("error");
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 // -----------------Get-All-User-Data-------------------------------------------------------
 
 router.get("/user", (req, res) => {
@@ -161,8 +180,9 @@ router.delete("/:id", (req, res) => {
 });
 // -----------------Update-Data---------------------------------------------------------
 router.put("/:id", (req, res) => {
-  console.log(req.body);
-  // console.log( ...req.body.service_name);
+  // console.log("update", req.body);
+
+  const services = req.body.service_name.join(", ");
 
   let date = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
   const sql = `UPDATE user SET first_name = ?, last_name = ?,  address = ?, mobile_no = ?, service_charge = ?, area = ?, experience = ? , city = ?,gender=?, state=?, country=? ,service_name=? ,update_date = ?   WHERE id = ?`;
@@ -178,7 +198,7 @@ router.put("/:id", (req, res) => {
     req.body.gender,
     req.body.state,
     req.body.country,
-    req.body.service_name,
+    services,
     date,
     req.params.id,
   ];

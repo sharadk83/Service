@@ -24,9 +24,10 @@ import UserRecords from "./components/modules/Pages/Records/UserRecords";
 import EditUser from "./components/modules/Pages/Users/EditUser";
 import Test from "./Test";
 import PageNotFound from "./components/PageNotFound";
+import InquiryIndex from "./components/modules/Pages/Service_Inquiry/Inquiry_Index";
+import ServiceDetails from "./components/modules/Pages/Service_Inquiry/ServiceDetails";
 
 const App = () => {
-
   return (
     <>
       <Routes>
@@ -50,6 +51,12 @@ const App = () => {
           <Route exact path="add-new-page" element={<AddNewPages />} />
           <Route exact path="library" element={<Library />} />
           <Route exact path="add-new-library" element={<AddNewLibrary />} />
+          <Route exact path="inquiry-index" element={<InquiryIndex />} />
+          <Route
+            exact
+            path="service_inq_details/:service_name"
+            element={<ServiceDetails />}
+          />
           <Route
             exact
             path="edit_main_servies/:id"

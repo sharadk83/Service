@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import MainLayout from "../../../Layout/MainLayout";
 import ImgNot from "../../../../Images/not-found.png";
 import NotificationAlert from "../../../../notification/index";
+import Spinner from "../../../Layout/Spinner";
 
 const VendorRecords = () => {
   const [responseStatus, setResponseStatus] = useState("");
+  const [loader, setLoader] = useState(false);
 
   // const [status, setStatus] = useState(false);
   const [details, SetDetails] = useState([]);
@@ -30,10 +32,14 @@ const VendorRecords = () => {
 
   //------------------------Vendor-show data-----------------------------------
   const showdata = async () => {
+    setLoader(true);
+
     let vendorList = "http://localhost:4000/api/users/vendor";
     await axios.get(vendorList).then((res) => {
       SetDetails(res.data);
-      // console.log(res.data);
+      setTimeout(() => {
+        setLoader(false);
+      }, 300);
     });
   };
   useEffect(() => {
@@ -72,16 +78,13 @@ const VendorRecords = () => {
   return (
     <>
       <MainLayout>
-        {/* {JSON.stringify(getdata)} */}
+        {loader && <Spinner />}
         <NotificationAlert message={responseStatus} />
-
         <div className="container-fluid  bg-white">
           <div className="col-12">
             <div className=" rounded h-100  ">
               <h6 className="my-3">Vendor Records</h6>
-              {!details.length ? (
-                "No data found"
-              ) : (
+              {details.length ? (
                 <div className="table-responsive   ">
                   <table className="table table-striped border   ">
                     <thead>
@@ -169,10 +172,11 @@ const VendorRecords = () => {
                     </tbody>
                   </table>
                 </div>
+              ) : (
+                "No Data Found"
               )}
             </div>
             {/* ------------------Pagination-------------------------------------- */}
-
             <nav className="d-flex justify-content-end   ">
               {pageNumbers.map((number) => (
                 <ul className="pagination align-items-center" key={number}>
