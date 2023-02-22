@@ -83,6 +83,21 @@ router.get("/data/:id", (req, res) => {
     }
   });
 });
+router.get("/:service_name", (req, res) => {
+  const service_name = req.params.service_name;
+  conn.query(
+    "SELECT * FROM main_service WHERE service_name = ?",
+    service_name,
+    (error, result) => {
+      // console.log(result);
+      if (error) {
+        res.send("error");
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 // -----------------Delete-particular-Data----------------------------------------------
 router.delete("/:id", (req, res) => {
   const id = req.params.id;

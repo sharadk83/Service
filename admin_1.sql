@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2023 at 05:53 AM
+-- Generation Time: Feb 22, 2023 at 10:20 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -216,9 +216,11 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `gender`, `email`, `country`, `state`, `address`, `city`, `area`, `mobile_no`, `password`, `experience`, `service_name`, `service_charge`, `upload_file`, `document_type`, `document_file`, `user_role`, `current_date`, `update_date`) VALUES
 (139, 'Ayush', 'Arya', 'Male', 'ayusharya6395@gmail.com', 'india', 'MP', 'vijay nagar', 'shajapur', NULL, '9907099070', '123456', NULL, NULL, NULL, NULL, NULL, NULL, 3, '2023-02-03', '2023-02-03'),
-(146, 'Ayush', 'Arya', NULL, 'ayusharya0506@gmail.com', NULL, NULL, 'vijay nagar', 'shajapur', 'near by hanuman tapmple', '9907099070', '369852', '10_year', 'House cleaning ', '1000', 'image-1675753278059.man-3583424_1280.webp', 'IDENTITY CARD', 'image-1675753278062.pest-control-service-logo-cartoon-illustration-57635167.jpg', 2, '2023-02-07', '2023-02-20'),
-(147, 'test', 'test', NULL, 'ayusharya6395@gmail.com', NULL, NULL, 'vijay nagar', 'indore', 'near by hanuman tapmple', '9907099070', '123456', '2_year', 'Electrician', '1000', 'image-1675949354585.352-3522630_electrical-repair-clipart-electrician-png.png', 'IDENTITY CARD', 'image-1675949354591.352-3522630_electrical-repair-clipart-electrician-png.png', 2, '2023-02-09', '2023-02-10'),
-(150, 'Rahul', 'sharma', NULL, 'ayusharya0506@gmail.com', NULL, NULL, 'vijay nagar', 'indore', 'near by hanuman tapmple', '9907099070', '123456', '1_year', 'Electrician,Plumbers', '1500', 'image-1676901899008.What-does-an-electrician-do-during-their-daytoday-career-_819_6064015_0_14114472_1000.jpg', 'AADHAAR CARD', 'image-1676901899016.1000_F_399822445_pk1SJ0o1vTuRpIti0uh0px5tN2YLN3l3.jpg', 2, '2023-02-20', NULL);
+(146, 'Rahul', 'Gandhi', NULL, 'ayusharya0506@gmail.com', NULL, NULL, 'vijay nagar', 'shajapur', 'near by hanuman tapmple', '9907099070', '369852', '2 year', 'House cleaning , Painters, Plumbers, Electrician', '1000', 'image-1675753278059.man-3583424_1280.webp', 'IDENTITY CARD', 'image-1675753278062.pest-control-service-logo-cartoon-illustration-57635167.jpg', 2, '2023-02-07', '2023-02-22'),
+(147, 'test', 'test', NULL, 'ayusharya6395@gmail.com', NULL, NULL, 'vijay nagar', 'indore', 'near by hanuman tapmple', '9907099070', '123456', '3 year', 'Plumbers, Electrician, Painters, House cleaning ', '1000', 'image-1675949354585.352-3522630_electrical-repair-clipart-electrician-png.png', 'IDENTITY CARD', 'image-1675949354591.352-3522630_electrical-repair-clipart-electrician-png.png', 2, '2023-02-09', '2023-02-22'),
+(150, 'Rahul', 'sharma', NULL, 'ayusharya0506@gmail.com', NULL, NULL, 'vijay nagar', 'indore', 'near by hanuman tapmple', '9907099070', '123456', '1 year', 'Plumbers, Electrician', '1500', 'image-1676901899008.What-does-an-electrician-do-during-their-daytoday-career-_819_6064015_0_14114472_1000.jpg', 'AADHAAR CARD', 'image-1676901899016.1000_F_399822445_pk1SJ0o1vTuRpIti0uh0px5tN2YLN3l3.jpg', 2, '2023-02-20', '2023-02-22'),
+(151, 'Ayush', 'Arya', NULL, 'ayusharya6395@gmail.com', NULL, NULL, 'Aditya Nagar', 'shajapur', 'near by hanuman tapmple', '9907099070', '123456', '5 year', 'Plumbers,Electrician,Painters,House cleaning ', '2000', 'image-1677045618221.indian-construction-site-manager-standing-260nw-2060102003.webp', 'AADHAAR CARD', 'image-1677045618234.1000_F_399822445_pk1SJ0o1vTuRpIti0uh0px5tN2YLN3l3.jpg', 2, '2023-02-22', NULL),
+(152, 'salman', 'khan', NULL, 'ayusharya0506@gmail.com', NULL, NULL, 'Aditya Nagar', 'shajapur', 'test1,test2', '9907099070', '123456', '2 year', 'Electrician,Plumbers,Painters,House cleaning ', '200', 'image-1677045728344.shutterstock_2139282303-1.jpg', 'AADHAAR CARD', 'image-1677045728346.1000_F_399822445_pk1SJ0o1vTuRpIti0uh0px5tN2YLN3l3.jpg', 2, '2023-02-22', NULL);
 
 --
 -- Indexes for dumped tables
@@ -262,7 +264,7 @@ ALTER TABLE `main_service`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

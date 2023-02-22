@@ -331,17 +331,17 @@ const Vendor = () => {
                       value={experience}
                     >
                       <option defaultValue="">Choose year..</option>
-                      <option value="1_year">1 year</option>
-                      <option value="2_year">2 year</option>
-                      <option value="3_year">3 year</option>
-                      <option value="4_year">4 year</option>
-                      <option value="5_year">5 year</option>
-                      <option value="6_year">6 year</option>
-                      <option value="7_year">7 year</option>
-                      <option value="8_year">8 year</option>
-                      <option value="9_year">9 year</option>
-                      <option value="10_year">10 year</option>
-                      <option value="10_year above">10 year above</option>
+                      <option value="1 year">1 year</option>
+                      <option value="2 year">2 year</option>
+                      <option value="3 year">3 year</option>
+                      <option value="4 year">4 year</option>
+                      <option value="5 year">5 year</option>
+                      <option value="6 year">6 year</option>
+                      <option value="7 year">7 year</option>
+                      <option value="8 year">8 year</option>
+                      <option value="9 year">9 year</option>
+                      <option value="10 year">10 year</option>
+                      <option value="10 year above">10 year above</option>
                     </select>
                     <small style={{ color: "red" }}>
                       {formErrors.experience}
