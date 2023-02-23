@@ -1,39 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import MainLayout from "../../../../Layout/MainLayout";
-const EditSubServies = () => {
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import Editor from "jodit-react";
+
+const SubServies = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const editor = useRef(null);
+  const [Data, SetData] = useState([]);
   const [formErrors, setFormError] = useState({});
+  const [img, setImg] = useState("");
+  const [responseStatus, setResponseStatus] = useState("");
   const [formData, setFormData] = useState({
-    username: "",
-    document: "",
+    service_name: "",
+    sub_service_name: "",
     description: "",
   });
-  const [img, setImg] = useState("");
+
+  const { service_name, sub_service_name, description } = formData;
 
   const handleImg = (e) => {
     const file = e.target.files[0];
-    let a = URL.createObjectURL(file);
-    setImg(a);
+    setImg(file);
   };
   const handleCheck = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleDescription = (e) => {
+    setFormData({ ...formData, description: e });
   };
 
   const validate = () => {
     let inputValid = formData;
     let formErrors = {};
     let isValid = true;
-    if (!inputValid.username) {
-      isValid = false;
-      formErrors.username = "Name field is required!";
-    }
+    let textRegex = /^[a-zA-Z\s]+$/;
 
+    if (!inputValid.service_name) {
+      isValid = false;
+      formErrors.services_name = "Services field is required!";
+    }
+    if (!inputValid.sub_service_name) {
+      isValid = false;
+      formErrors.sub_service_name = "Sub Services field is required!";
+    } else if (!textRegex.test(inputValid.sub_service_name)) {
+      isValid = false;
+      formErrors.sub_service_name = "This is not a valid Text";
+    }
     if (!inputValid.description) {
       isValid = false;
       formErrors.description = "Description field is required!";
-    }
-    if (!inputValid.document) {
-      isValid = false;
-      formErrors.document = "Document field is required!";
     }
     if (!img) {
       isValid = false;
@@ -43,66 +60,135 @@ const EditSubServies = () => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  // -------------------URL------------------------------------------------------------
+  const constant = {
+    putSub_ServiceUrl: `http://localhost:4000/api/sub_service/${id}`,
+    getSub_ServiceUrl: `http://localhost:4000/api/sub_service/data/${id}`,
+    servicesUrl: "http://localhost:4000/api/main_service",
+  };
+
+  // ----------------------------getData-call-function-------------------------------------
+
+  const getData = async () => {
+    await axios
+      .get(`${constant.getSub_ServiceUrl}`)
+      .then((response) => {
+        setFormData(...response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+  // ----------------------------show-services-------------------------------------
+
+  const showdata = async () => {
+    try {
+      const responce = await axios.get(`${constant.servicesUrl}`);
+      SetData(responce.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    showdata();
+  }, []);
+
+  // -------------------Submit_function------------------------------------------------
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const Data = new FormData();
+    Data.append("file", img);
+    Data.append("services", service_name);
+    Data.append("sub_service_name", sub_service_name);
+    Data.append("description", description);
     if (validate()) {
-      console.log(formData);
+      try {
+        const res = await axios.put(`${constant.putSub_ServiceUrl}`, Data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log(res.data);
+        if (res.data.msgType === "success") {
+          setTimeout(() => {
+            navigate("/url/sub_servies_record");
+          }, 1000);
+        } else if (res.data.msgType === "error") {
+          setResponseStatus({
+            type: res.data.msgType,
+            message: res.data.message,
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
   return (
     <>
       <MainLayout>
-        <div className="container-fluid pt-4 px-4">
+        <div className="container-fluid ">
           <div className="row h-100 align-items-center justify-content-center">
-            <div className="col-sm-10">
-              <h4 className="text-primary">Sub-Servies</h4>
-              <div className="bg-white shadow-1 rounded h-100 p-4 ">
+            <div className="col">
+              <h4 className="text-primary mt-3">Sub-Servies</h4>
+              <div className="bg-white  rounded h-100 p-4  ">
                 <form
                   className="row g-3 needs-validation"
                   onSubmit={handleSubmit}
                 >
+                  <div className="col-md-6 ">
+                    <label className="form-label">Services</label>
+                    <select
+                      className="form-select"
+                      onChange={handleCheck}
+                      value={service_name}
+                      name="service_name"
+                    >
+                      <option defaultValue="">Choose services</option>
+                      {Data.map((item, index) => (
+                        <option key={index} value={item.id}>
+                          {item.service_name}
+                        </option>
+                      ))}
+                    </select>
+                    <small style={{ color: "red" }}>
+                      {formErrors.service_name}
+                    </small>
+                  </div>
                   <div className="col-md-6">
                     <label className="form-label">Name</label>
                     <input
                       type="text"
                       className="form-control"
                       onChange={handleCheck}
-                      name="username"
-                      value={""}
+                      name="sub_service_name"
+                      value={sub_service_name}
                     />
-                    <p style={{ color: "red" }}>{formErrors.username}</p>
-                  </div>
-                  <div className="col-md-4 mx-3">
-                    <label className="form-label">Document</label>
-                    <select
-                      className="form-select"
-                      onChange={handleCheck}
-                      name="ducument"
-                      value={""}
-                    >
-                      <option value="">Choose services</option>
-                      <option value="">123</option>
-                      <option value="">123</option>
-                      <option value="">123</option>
-                      <option value="">123</option>
-                      <option value="">123</option>
-                    </select>
-                    <p style={{ color: "red" }}>{formErrors.document}</p>
+                    <small style={{ color: "red" }}>
+                      {formErrors.sub_service_name}
+                    </small>
                   </div>
 
-                  <div className="col-md-4">
+                  <div className="col-md-12">
                     <label className="form-label">Description</label>
-                    <textarea
-                      onChange={handleCheck}
-                      type="text"
-                      className="form-control"
-                      rows={3}
+
+                    <Editor
+                      tabIndex={1}
+                      ref={editor}
+                      onChange={(e) => handleDescription(e)}
+                      value={description}
                     />
-                    <p style={{ color: "red" }}>{formErrors.description}</p>
+                    <small style={{ color: "red" }}>
+                      {formErrors.description}
+                    </small>
                   </div>
 
-                  <div className="col-md-3 my-5 mx-2">
+                  <div className="col-md-3 mt-5">
                     <input
                       className="form-control"
                       type="file"
@@ -116,17 +202,28 @@ const EditSubServies = () => {
                       className="lableFile"
                       htmlFor="contained-button-file"
                     >
-                      <span className="btn bg-red ">
-                        <i className="bi bi-file-arrow-up"></i> Upload Image
+                      <span className="btn  border border-2 border-primary text-primary">
+                        <i className="bi bi-file-arrow-up text-primary"></i>{" "}
+                        Upload Image
                       </span>
                     </label>
-                    <p style={{ color: "red" }}>{formErrors.img}</p>
+                    <div>
+                      <small style={{ color: "red" }}>{formErrors.img}</small>
+                    </div>
                   </div>
                   <div className="col-md-3">
-                    {img ? <img className="img-200" src={img} alt={img} /> : ""}
+                    {img ? (
+                      <img
+                        className="img-200"
+                        src={URL.createObjectURL(img)}
+                        alt={img}
+                      />
+                    ) : (
+                      ""
+                    )}
                   </div>
 
-                  <div className="col-12">
+                  <div className="col-md-12">
                     <button className="btn btn-primary" type="submit">
                       Submit form
                     </button>
@@ -141,4 +238,4 @@ const EditSubServies = () => {
   );
 };
 
-export default EditSubServies;
+export default SubServies;

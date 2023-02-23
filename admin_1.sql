@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2023 at 10:20 AM
+-- Generation Time: Feb 23, 2023 at 11:10 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -183,6 +183,27 @@ INSERT INTO `otp_tbl` (`email`, `otp`, `times`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sub_service`
+--
+
+CREATE TABLE `sub_service` (
+  `id` int(11) NOT NULL,
+  `service_name` varchar(50) DEFAULT NULL,
+  `sub_service_name` varchar(100) NOT NULL,
+  `description` varchar(500) NOT NULL,
+  `img_path` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sub_service`
+--
+
+INSERT INTO `sub_service` (`id`, `service_name`, `sub_service_name`, `description`, `img_path`) VALUES
+(2, '8', 'plumne', '<p>asas</p>', 'image-1677138019601.352-3522630_electrical-repair-clipart-electrician-png.png');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -239,6 +260,12 @@ ALTER TABLE `main_service`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sub_service`
+--
+ALTER TABLE `sub_service`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -259,6 +286,12 @@ ALTER TABLE `contact_details`
 --
 ALTER TABLE `main_service`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `sub_service`
+--
+ALTER TABLE `sub_service`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`

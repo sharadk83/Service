@@ -25,19 +25,22 @@ const SubServiesRecords = () => {
   for (let i = 1; i <= Math.ceil(details.length / dataPerPage); i++) {
     pageNumbers.push(i);
   }
+  const constant = {
+    Sub_Service_Url: `http://localhost:4000/api/sub_service`,
+  };
+  const showdata = () => {
+    axios.get(`${constant.Sub_Service_Url}`).then((res) => {
+      SetDetails(res.data);
+      // console.log(res.data);
+    });
+  };
   useEffect(() => {
     showdata();
   }, []);
-  const showdata = () => {
-    let Data = "";
-    axios.get(Data).then((res) => {
-      SetDetails(res.data);
-    });
-  };
 
   const handleDelete = (id) => {
-    let Data = ``;
-    axios.delete(Data).then((res) => {
+    let DeleteServiceUrl = `http://localhost:4000/api/sub_service/${id}`;
+    axios.delete(DeleteServiceUrl).then((res) => {
       showdata();
     });
   };
@@ -61,21 +64,23 @@ const SubServiesRecords = () => {
                       <tr>
                         <th scope="col">No.</th>
                         <th scope="col">Image</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Document</th>
+                        <th scope="col">Services</th>
+                        <th scope="col">Sub Service</th>
                         <th scope="col">Description</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {currentData.map((e) => (
-                        <tr key={e.id}>
-                          <td>{e.id}</td>
+                      {currentData.map((item, index) => (
+                        <tr key={index}>
+                          <td>{item.id}</td>
                           <td>
                             <img
                               className="not-img"
                               src={ImgNot}
                               alt={ImgNot}
+                              width={100}
+                              height={80}
                             />
                             {/* <img
                               width={100}
@@ -84,13 +89,17 @@ const SubServiesRecords = () => {
                               alt={e.imgPath}
                             /> */}
                           </td>
-                          <td>{e.formData.username}</td>
-                          <td>{e.formData.document}</td>
-                          <td>{e.formData.description}</td>
+                          <td>{item.service_name}</td>
+                          <td>{item.sub_service_name}</td>
+                          <td
+                            dangerouslySetInnerHTML={{
+                              __html: item.description,
+                            }}
+                          ></td>
 
                           <td>
                             <Link
-                              to={`/user/edit_sub_servies/${e.id}`}
+                              to={`/url/edit_sub_servies/${item.id}`}
                               className="btn btn-primary mx-1 my-1"
                             >
                               <i className="bi bi-pencil-fill"></i>
@@ -99,7 +108,7 @@ const SubServiesRecords = () => {
                             <button
                               type="button"
                               className="btn bg-red mx-1 my-1"
-                              onClick={() => handleDelete(e.id)}
+                              onClick={() => handleDelete(item.id)}
                             >
                               <i className="bi bi-trash"></i>
                             </button>

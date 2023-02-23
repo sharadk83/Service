@@ -9,23 +9,24 @@ const SubServies = () => {
   const editor = useRef(null);
   const [Data, SetData] = useState([]);
   const [formErrors, setFormError] = useState({});
+  const [img, setImg] = useState("");
+  const [responseStatus, setResponseStatus] = useState("");
   const [formData, setFormData] = useState({
-    username: "",
-    document: "",
+    services: "",
+    sub_service_name: "",
     description: "",
   });
-  const [img, setImg] = useState("");
+
+  const { services, sub_service_name, description } = formData;
 
   const handleImg = (e) => {
     const file = e.target.files[0];
-    // let a = URL.createObjectURL(file);
     setImg(file);
   };
   const handleCheck = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleDescription = (e) => {
-    console.log(e);
     setFormData({ ...formData, description: e });
   };
 
@@ -33,64 +34,78 @@ const SubServies = () => {
     let inputValid = formData;
     let formErrors = {};
     let isValid = true;
-    const textRegex = /^[a-zA-Z]+$/;
+    let textRegex = /^[a-zA-Z\s]+$/;
 
-    if (!inputValid.username) {
+    if (!inputValid.services) {
       isValid = false;
-      formErrors.username = "Name field is required!";
-    } else if (!textRegex.test(inputValid.username)) {
-      isValid = false;
-      formErrors.username = "This is not a valid Text";
+      formErrors.services = "Services field is required!";
     }
-
+    if (!inputValid.sub_service_name) {
+      isValid = false;
+      formErrors.sub_service_name = "Sub Services field is required!";
+    } else if (!textRegex.test(inputValid.sub_service_name)) {
+      isValid = false;
+      formErrors.sub_service_name = "This is not a valid Text";
+    }
     if (!inputValid.description) {
       isValid = false;
       formErrors.description = "Description field is required!";
     }
-    // else if (!textRegex.test(inputValid.description)) {
-    //   isValid = false;
-    //   formErrors.description = "This is not a valid Text";
-    // }
-    if (!inputValid.document) {
+    if (!img) {
       isValid = false;
-      formErrors.document = "Document field is required!";
+      formErrors.img = "Image file is required!";
     }
-    // if (!img) {
-    //   isValid = false;
-    //   formErrors.img = "Image file is required!";
-    // }
     setFormError(formErrors);
     return isValid;
   };
-  useEffect(() => {
-    const showdata = () => {
-      let Data = "";
-      axios.get(Data).then((res) => {
-        SetData(res.data);
-        // console.log(res.data);
-      });
-    };
-    showdata();
-  }, []);
-  const uniqueNames = [...new Set(Data.map((item) => item.formData.title))];
 
   const constant = {
-    SubServiesUrl: "",
+    servicesUrl: "http://localhost:4000/api/main_service",
+    SubServiesUrl: "http://localhost:4000/api/sub_service",
   };
 
-  const handleSubmit = (e) => {
+  const showdata = async () => {
+    try {
+      const responce = await axios.get(`${constant.servicesUrl}`);
+      SetData(responce.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    showdata();
+  }, []);
+
+  // -------------------Submit_function------------------------------------------------
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    const Data = new FormData();
+    Data.append("file", img);
+    Data.append("services", services);
+    Data.append("sub_service_name", sub_service_name);
+    Data.append("description", description);
     if (validate()) {
-      axios
-        .post(`${constant.SubServiesUrl}`, { formData })
-        .then((res) => {
-          console.log(res.data);
-          navigate("/user/sub_servies_record");
-        })
-        .catch((error) => {
-          console.error(error);
+      try {
+        const res = await axios.post(`${constant.SubServiesUrl}`, Data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         });
+        console.log(res.data);
+        if (res.data.msgType === "success") {
+          setTimeout(() => {
+            navigate("/url/sub_servies_record");
+          }, 1000);
+        } else if (res.data.msgType === "error") {
+          setResponseStatus({
+            type: res.data.msgType,
+            message: res.data.message,
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -111,18 +126,18 @@ const SubServies = () => {
                     <select
                       className="form-select"
                       onChange={handleCheck}
-                      value={formData.document}
-                      name="document"
+                      value={formData.services}
+                      name="services"
                     >
                       <option defaultValue="">Choose services</option>
-                      {uniqueNames.map((item, index) => (
+                      {Data.map((item, index) => (
                         <option key={index} value={item.id}>
-                          {item}
+                          {item.service_name}
                         </option>
                       ))}
                     </select>
                     <small style={{ color: "red" }}>
-                      {formErrors.document}
+                      {formErrors.services}
                     </small>
                   </div>
                   <div className="col-md-6">
@@ -131,24 +146,17 @@ const SubServies = () => {
                       type="text"
                       className="form-control"
                       onChange={handleCheck}
-                      name="username"
-                      value={formData.username}
+                      name="sub_service_name"
+                      value={formData.sub_service_name}
                     />
                     <small style={{ color: "red" }}>
-                      {formErrors.username}
+                      {formErrors.sub_service_name}
                     </small>
                   </div>
 
                   <div className="col-md-12">
                     <label className="form-label">Description</label>
-                    {/* <textarea
-                      onChange={handleCheck}
-                      type="text"
-                      className="form-control"
-                      rows={3}
-                      name="description"
-                      value={formData.description}
-                    /> */}
+
                     <Editor
                       tabIndex={1}
                       ref={editor}
@@ -179,7 +187,9 @@ const SubServies = () => {
                         Upload Image
                       </span>
                     </label>
-                    <small style={{ color: "red" }}>{formErrors.img}</small>
+                    <div>
+                      <small style={{ color: "red" }}>{formErrors.img}</small>
+                    </div>
                   </div>
                   <div className="col-md-3">
                     {img ? (

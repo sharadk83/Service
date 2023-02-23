@@ -10,8 +10,8 @@ const forget_pass = require("./Api/signin/forget_password");
 const user_join = require("./Api/Mails/user_join");
 const vendorRoute = require("./Api/vendor/vendor");
 const mainServiceRoute = require("./Api/service/main_service");
+const subServiceRoute = require("./Api/sub_service/sub_service");
 // const couponRoute = require("./Api/add_coupon/add_coupon");
-// const subServiceRoute = require("./Api/sub_service/sub_service");
 // const addNewPageRoute = require("./Api/add_new_page/add_new_page");
 // const mediaRoute = require("./Api/media/media");
 
@@ -26,7 +26,7 @@ app.use("/api/forget_pwd", forget_pass);
 app.use("/api/users", vendorRoute);
 app.use("/api/user_join", user_join);
 app.use("/api/main_service", mainServiceRoute);
-// app.use("/api/sub_service", subServiceRoute);
+app.use("/api/sub_service", subServiceRoute);
 // app.use("/api/coupon", couponRoute);
 // app.use("/api/add_new_page", addNewPageRoute);
 // app.use("/api/media", mediaRoute);
