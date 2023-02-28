@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import MainLayout from "../../../../Layout/MainLayout";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import Editor from "jodit-react";
+import axios from "axios";
 
 const SubServies = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const editor = useRef(null);
+  const navigate = useNavigate();
   const [Data, SetData] = useState([]);
   const [formErrors, setFormError] = useState({});
   const [img, setImg] = useState("");
@@ -27,15 +27,15 @@ const SubServies = () => {
   const handleCheck = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleDescription = (e) => {
     setFormData({ ...formData, description: e });
   };
-
   const validate = () => {
     let inputValid = formData;
     let formErrors = {};
     let isValid = true;
-    let textRegex = /^[a-zA-Z\s]+$/;
+    // let textRegex = /^[a-zA-Z\s]+$/;
 
     if (!inputValid.service_name) {
       isValid = false;
@@ -44,10 +44,11 @@ const SubServies = () => {
     if (!inputValid.sub_service_name) {
       isValid = false;
       formErrors.sub_service_name = "Sub Services field is required!";
-    } else if (!textRegex.test(inputValid.sub_service_name)) {
-      isValid = false;
-      formErrors.sub_service_name = "This is not a valid Text";
     }
+    // else if (!textRegex.test(inputValid.sub_service_name)) {
+    //   isValid = false;
+    //   formErrors.sub_service_name = "This is not a valid Text";
+    // }
     if (!inputValid.description) {
       isValid = false;
       formErrors.description = "Description field is required!";
@@ -135,7 +136,7 @@ const SubServies = () => {
         <div className="container-fluid ">
           <div className="row h-100 align-items-center justify-content-center">
             <div className="col">
-              <h4 className="text-primary mt-3">Sub-Servies</h4>
+              <h4 className="text-primary mt-3">Edit Sub-Servies</h4>
               <div className="bg-white  rounded h-100 p-4  ">
                 <form
                   className="row g-3 needs-validation"

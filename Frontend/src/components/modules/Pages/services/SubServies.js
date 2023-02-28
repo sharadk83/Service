@@ -26,15 +26,15 @@ const SubServies = () => {
   const handleCheck = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleDescription = (e) => {
     setFormData({ ...formData, description: e });
   };
-
   const validate = () => {
     let inputValid = formData;
     let formErrors = {};
     let isValid = true;
-    let textRegex = /^[a-zA-Z\s]+$/;
+    // let textRegex = /^[a-zA-Z\s]+$/;
 
     if (!inputValid.services) {
       isValid = false;
@@ -43,10 +43,11 @@ const SubServies = () => {
     if (!inputValid.sub_service_name) {
       isValid = false;
       formErrors.sub_service_name = "Sub Services field is required!";
-    } else if (!textRegex.test(inputValid.sub_service_name)) {
-      isValid = false;
-      formErrors.sub_service_name = "This is not a valid Text";
     }
+    // else if (!textRegex.test(inputValid.sub_service_name)) {
+    //   isValid = false;
+    //   formErrors.sub_service_name = "This is not a valid Text";
+    // }
     if (!inputValid.description) {
       isValid = false;
       formErrors.description = "Description field is required!";
@@ -126,7 +127,7 @@ const SubServies = () => {
                     <select
                       className="form-select"
                       onChange={handleCheck}
-                      value={formData.services}
+                      value={services}
                       name="services"
                     >
                       <option defaultValue="">Choose services</option>
@@ -147,7 +148,7 @@ const SubServies = () => {
                       className="form-control"
                       onChange={handleCheck}
                       name="sub_service_name"
-                      value={formData.sub_service_name}
+                      value={sub_service_name}
                     />
                     <small style={{ color: "red" }}>
                       {formErrors.sub_service_name}
@@ -156,12 +157,11 @@ const SubServies = () => {
 
                   <div className="col-md-12">
                     <label className="form-label">Description</label>
-
                     <Editor
                       tabIndex={1}
                       ref={editor}
                       onChange={(e) => handleDescription(e)}
-                      value={formData.description}
+                      value={description}
                     />
                     <small style={{ color: "red" }}>
                       {formErrors.description}

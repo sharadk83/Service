@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const conn = require("../../config");
 const multer = require("multer");
+const sharp = require("sharp");
 const moment = require("moment");
 
 // --------------------------Upload-Image----------------------------------------------------------
@@ -30,9 +31,17 @@ var upload = multer({
 });
 
 // ---------------Main_service-Post-Data------------------------------------------------------------
-router.post("/", upload.single("file"), (req, res) => {
+router.post("/", upload.single("file"), async (req, res) => {
   const { service_name, title, description, start_date, end_date } = req.body;
   const { filename } = req.file;
+
+  const thumbnailFilename = `thumbnail-${filename}`;
+  const thumbnailPath = `././public/Service/Service_Thumbnail/${thumbnailFilename}`;
+
+  await sharp(`././public/Service/${filename}`)
+    .resize(65, 65)
+    .toFile(thumbnailPath);
+
   conn.query(
     "INSERT  INTO main_service SET ?",
     {
@@ -42,6 +51,7 @@ router.post("/", upload.single("file"), (req, res) => {
       start_date: start_date,
       end_date: end_date,
       img_path: filename,
+      thumbnail_path: thumbnailFilename,
     },
     (err, result) => {
       if (err) {
@@ -83,21 +93,21 @@ router.get("/data/:id", (req, res) => {
     }
   });
 });
-router.get("/:service_name", (req, res) => {
-  const service_name = req.params.service_name;
-  conn.query(
-    "SELECT * FROM main_service WHERE service_name = ?",
-    service_name,
-    (error, result) => {
-      // console.log(result);
-      if (error) {
-        res.send("error");
-      } else {
-        res.send(result);
-      }
-    }
-  );
-});
+// router.get("/:service_name", (req, res) => {
+//   const service_name = req.params.service_name;
+//   conn.query(
+//     "SELECT * FROM main_service WHERE service_name = ?",
+//     service_name,
+//     (error, result) => {
+//       // console.log(result);
+//       if (error) {
+//         res.send("error");
+//       } else {
+//         res.send(result);
+//       }
+//     }
+//   );
+// });
 // -----------------Delete-particular-Data----------------------------------------------
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
@@ -141,11 +151,17 @@ var Updateupload = multer({
   fileFilter: UpdateImage,
 });
 
-router.put("/:id", Updateupload.single("file"), (req, res) => {
+router.put("/:id", Updateupload.single("file"), async (req, res) => {
   // console.log(req.body);
 
-  // let date = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
-  const sql = `UPDATE main_service SET service_name = ?, title = ?,  description = ?, start_date = ?, end_date = ?,img_path=? WHERE id = ?`;
+  const thumbnailFilename = `thumbnail-${req.file.filename}`;
+  const thumbnailPath = `././public/Service/Service_Thumbnail/${thumbnailFilename}`;
+
+  await sharp(`././public/Service/${req.file.filename}`)
+    .resize(65, 65)
+    .toFile(thumbnailPath);
+
+  const sql = `UPDATE main_service SET service_name = ?, title = ?,  description = ?, start_date = ?, end_date = ?,img_path=?,thumbnail_path=? WHERE id = ?`;
   const values = [
     req.body.service_name,
     req.body.title,
@@ -153,6 +169,7 @@ router.put("/:id", Updateupload.single("file"), (req, res) => {
     req.body.start_date,
     req.body.end_date,
     req.file.filename,
+    thumbnailFilename,
     req.params.id,
   ];
 

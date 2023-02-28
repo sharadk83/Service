@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MainLayout from "../../../Layout/MainLayout";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import ImgNot from "../../../../Images/not-found.png";
+// import ImgNot from "../../../../Images/not-found.png";
 
 // import _ from "lodash";
 
@@ -64,7 +64,7 @@ const SubServiesRecords = () => {
                       <tr>
                         <th scope="col">No.</th>
                         <th scope="col">Image</th>
-                        <th scope="col">Services</th>
+                        <th scope="col">Services ID</th>
                         <th scope="col">Sub Service</th>
                         <th scope="col">Description</th>
                         <th scope="col">Action</th>
@@ -76,18 +76,11 @@ const SubServiesRecords = () => {
                           <td>{item.id}</td>
                           <td>
                             <img
-                              className="not-img"
-                              src={ImgNot}
-                              alt={ImgNot}
                               width={100}
                               height={80}
+                              src={`http://localhost:4000/Sub_service_img/${item.img_path}`}
+                              alt={item.img_path}
                             />
-                            {/* <img
-                              width={100}
-                              height={80}
-                              src={e.imgPath}
-                              alt={e.imgPath}
-                            /> */}
                           </td>
                           <td>{item.service_name}</td>
                           <td>{item.sub_service_name}</td>

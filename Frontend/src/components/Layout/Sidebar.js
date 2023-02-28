@@ -57,12 +57,42 @@ const Sidebar = () => {
               <i className="fa fa-tachometer-alt me-2"></i>Dashboard
             </Link>
             <Link
+              to="/url/add-new-benner                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     "
+              className="nav-item nav-link "
+            >
+              <i className="bi bi-border-top  me-2"></i>Add Benner
+            </Link>
+            <Link
               to="/url/inquiry-index                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "
               className="nav-item nav-link "
             >
               <i className="bi bi-telephone  me-2"></i>Inquiry Record
             </Link>
             {/* <hr className="mt-0 mb-0 text-white"/> */}
+            {/* ////////////////////////////////////////////////////////// */}
+            <div className="nav-item dropdown">
+              <a
+                href="/"
+                className="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+              >
+                <i className=" fa fa-table me-2"></i>Vendor
+              </a>
+
+              <div className=" mx-3 my-1 dropdown-menu dropdown-menu-end  bg-white border rounded rounded-bottom m-0">
+                <Link to="/url/vendor" className="dropdown-item">
+                  <small>Add New Vendor</small>
+                </Link>
+                <hr className="mt-0 mb-0 text-primary" />
+                <Link to="/url/records" className="dropdown-item">
+                  <small>Vendor Records</small>
+                </Link>
+                <hr className="mt-0 mb-0 text-primary" />
+                <Link to="/url/user_records" className="dropdown-item">
+                  <small>User Records</small>
+                </Link>
+              </div>
+            </div>
             <div className="nav-item  dropdown ">
               <a
                 href="/"
@@ -159,30 +189,7 @@ const Sidebar = () => {
                 </Link>
               </div>
             </div>
-            {/* ////////////////////////////////////////////////////////// */}
-            <div className="nav-item dropdown">
-              <a
-                href="/"
-                className="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown"
-              >
-                <i className=" fa fa-table me-2"></i>Vendor
-              </a>
 
-              <div className=" mx-3 my-1 dropdown-menu dropdown-menu-end  bg-white border rounded rounded-bottom m-0">
-                <Link to="/url/vendor" className="dropdown-item">
-                  <small>Add New Vendor</small>
-                </Link>
-                <hr className="mt-0 mb-0 text-primary" />
-                <Link to="/url/records" className="dropdown-item">
-                  <small>Vendor Records</small>
-                </Link>
-                <hr className="mt-0 mb-0 text-primary" />
-                <Link to="/url/user_records" className="dropdown-item">
-                  <small>User Records</small>
-                </Link>
-              </div>
-            </div>
             {/* ////////////////////////////////////////////////////////// */}
 
             <Link to="/url/add-coupon" className="nav-item nav-link">

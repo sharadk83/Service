@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const conn = require("../../config");
 const multer = require("multer");
+const sharp = require("sharp");
 const moment = require("moment");
 
 // --------------------------Upload-Image----------------------------------------------------------
@@ -29,9 +30,16 @@ var upload = multer({
 });
 
 // ---------------Sub_service-Post-Data------------------------------------------------------------
-router.post("/", upload.single("file"), (req, res) => {
+router.post("/", upload.single("file"), async (req, res) => {
   const { services, sub_service_name, description } = req.body;
   const { filename } = req.file;
+
+  const thumbnailFilename = `thumbnail-${filename}`;
+  const thumbnailPath = `././public/Sub_service/Sub_Service_Thumbnail/${thumbnailFilename}`;
+
+  await sharp(`././public/Sub_service/${filename}`)
+    .resize(65, 65)
+    .toFile(thumbnailPath);
 
   conn.query(
     "INSERT  INTO sub_service SET ?",
@@ -40,6 +48,7 @@ router.post("/", upload.single("file"), (req, res) => {
       sub_service_name: sub_service_name,
       description: description,
       img_path: filename,
+      thumbnail_path: thumbnailFilename,
     },
     (err, result) => {
       if (err) {
@@ -68,6 +77,24 @@ router.get("/", (req, res) => {
       res.send(result);
     }
   });
+});
+// -----------------Get-Service-Acording-Data-------------------------------------------------------
+
+router.get("/services/:id", (req, res) => {
+  const id = req.params.id;
+
+  conn.query(
+    "SELECT * FROM sub_service WHERE service_name= ?",
+    id,
+    (error, result) => {
+      if (error) {
+        res.send("error");
+      } else {
+        res.send(result);
+        // console.log(result);
+      }
+    }
+  );
 });
 // -----------------Get-particular-Data-------------------------------------------------
 router.get("/data/:id", (req, res) => {
@@ -125,16 +152,23 @@ var Updateupload = multer({
   fileFilter: UpdateImage,
 });
 
-router.put("/:id", Updateupload.single("file"), (req, res) => {
+router.put("/:id", Updateupload.single("file"), async (req, res) => {
   // console.log(req.body);
 
-  // let date = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
-  const sql = `UPDATE sub_service SET service_name = ?, sub_service_name=?, description = ?,img_path=? WHERE id = ?`;
+  const thumbnailFilename = `thumbnail-${req.file.filename}`;
+  const thumbnailPath = `././public/Sub_service/Sub_Service_Thumbnail/${thumbnailFilename}`;
+
+  await sharp(`././public/Sub_service/${req.file.filename}`)
+    .resize(65, 65)
+    .toFile(thumbnailPath);
+
+  const sql = `UPDATE sub_service SET service_name = ?, sub_service_name=?, description = ?,img_path=?,thumbnail_path=? WHERE id = ?`;
   const values = [
     req.body.services,
     req.body.sub_service_name,
     req.body.description,
     req.file.filename,
+    thumbnailFilename,
     req.params.id,
   ];
 

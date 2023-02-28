@@ -3,6 +3,7 @@ const router = express.Router();
 const conn = require("../../config");
 const multer = require("multer");
 const moment = require("moment");
+const sharp = require("sharp");
 // const bcrypt = require("bcrypt");
 // const saltRounds = 10;
 
@@ -34,7 +35,7 @@ var upload = multer({
 var uploadMultiple = upload.fields([{ name: "file" }, { name: "file2" }]);
 
 // ---------------Admin/User-Post-Data------------------------------------------------------------
-router.post("/", uploadMultiple, (req, res) => {
+router.post("/", uploadMultiple, async (req, res) => {
   // console.log(req.body);
 
   const {
@@ -69,6 +70,20 @@ router.post("/", uploadMultiple, (req, res) => {
     var file_2 = req.files.file2[0].filename;
   }
 
+  const thumbnailFilename = `thumbnail-${file_1}`;
+  const thumbnailPath = `././public/Vendor_IMG/${thumbnailFilename}`;
+
+  await sharp(`././public/images/${file_1}`)
+    .resize(200, 200)
+    .toFile(thumbnailPath);
+
+  const thumbnailFilename_2 = `thumbnail-${file_2}`;
+  const thumbnailPath_2 = `././public/Docx_IMG/${thumbnailFilename_2}`;
+
+  await sharp(`././public/images/${file_2}`)
+    .resize(200, 200)
+    .toFile(thumbnailPath_2);
+
   conn.query(
     "INSERT  INTO user SET ?",
     {
@@ -88,8 +103,8 @@ router.post("/", uploadMultiple, (req, res) => {
       document_type: document_type,
       current_date: date,
       password: password,
-      upload_file: file_1,
-      document_file: file_2,
+      upload_file: thumbnailFilename,
+      document_file: thumbnailFilename_2,
       service_name: service_name,
       // password: hash,
     },

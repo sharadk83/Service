@@ -26,6 +26,7 @@ import Test from "./Test";
 import PageNotFound from "./components/PageNotFound";
 import InquiryIndex from "./components/modules/Pages/Service_Inquiry/Inquiry_Index";
 import ServiceDetails from "./components/modules/Pages/Service_Inquiry/ServiceDetails";
+import AddNewBenner from "./components/modules/Benner/AddNewBenner";
 
 const App = () => {
   return (
@@ -51,6 +52,7 @@ const App = () => {
           <Route exact path="add-new-page" element={<AddNewPages />} />
           <Route exact path="library" element={<Library />} />
           <Route exact path="add-new-library" element={<AddNewLibrary />} />
+          <Route exact path="add-new-benner" element={<AddNewBenner />} />
           <Route exact path="inquiry-index" element={<InquiryIndex />} />
           <Route
             exact
