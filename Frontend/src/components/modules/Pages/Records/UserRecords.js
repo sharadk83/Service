@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MainLayout from "../../../Layout/MainLayout";
 import { Link } from "react-router-dom";
-import NotificationAlert from "../../../../notification/index"
+import NotificationAlert from "../../../../notification/index";
 
 const UserRecords = () => {
   // const [status, setStatus] = useState(false);
@@ -52,7 +52,6 @@ const UserRecords = () => {
           message: res.data.message,
         });
       }
-
     });
   };
 
@@ -105,7 +104,7 @@ const UserRecords = () => {
                             <td>{e.city ? e.city : "N/A"}</td>
                             <td>{e.address ? e.address : "N/A"}</td>
                             <td>
-                            <Link
+                              <Link
                                 to={`/url/edit_user/${e.id}`}
                                 className="btn border border-2 border-primary mx-1 my-1"
                               >

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2023 at 02:27 PM
+-- Generation Time: Mar 07, 2023 at 07:19 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -41,10 +41,10 @@ INSERT INTO `add_benner` (`img_path`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contact_details`
+-- Table structure for table `contact_details_tbl`
 --
 
-CREATE TABLE `contact_details` (
+CREATE TABLE `contact_details_tbl` (
   `id` int(11) NOT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
@@ -57,43 +57,48 @@ CREATE TABLE `contact_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `contact_details`
+-- Dumping data for table `contact_details_tbl`
 --
 
-INSERT INTO `contact_details` (`id`, `first_name`, `last_name`, `email`, `address`, `mobile`, `purpose`, `service_name`, `date`) VALUES
+INSERT INTO `contact_details_tbl` (`id`, `first_name`, `last_name`, `email`, `address`, `mobile`, `purpose`, `service_name`, `date`) VALUES
 (74, 'ayush', 'arya', 'ayusharya0506@gmail.com', 'Aditya Nagar', '9907066094', 'hgg', 'Electrician', '2023-02-17'),
 (75, 'yogesh', 'Arya', 'ayusharya0506@gmail.com', 'Aditya Nagar', '9907066094', 'painting work in home', 'painters', '2023-02-17'),
 (76, 'golu', 'arya', 'ayusharya0506@gmail.com', 'vijay nagar', '9907066094', 'cleaning ', 'House cleaning ', '2023-02-17'),
 (77, 'golu', 'arya', 'ayusharya6395@gmail.com', 'Aditya Nagar', '9907066094', 'bathroom shower creak', 'Plumbers', '2023-02-17'),
 (78, 'Ayush', 'arya', 'ayusharya6395@gmail.com', 'Aditya Nagar', '9907066094', 'asasaasas', 'Plumbers', '2023-02-17'),
-(79, 'ayush', 'arya', 'ayusharya0506@gmail.com', 'vijay nagarjkjkjkj', '9907066094', 'jkjjkjkj', 'Plumbers', '2023-02-20');
+(79, 'ayush', 'arya', 'ayusharya0506@gmail.com', 'vijay nagarjkjkjkj', '9907066094', 'jkjjkjkj', 'Plumbers', '2023-02-20'),
+(80, 'ayush', 'arya', 'ayusharya0506@gmail.com', 'vijay nagar', '9907066094', 'house Clining', 'Home-Inquiry', '2023-03-03'),
+(82, 'ayush', 'arya', 'ayusharya0506@gmail.com', 'vijay nagar', '9907066094', 'eeeee', 'Electrician', '2023-03-03');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `main_service`
+-- Table structure for table `faq_tbl`
 --
 
-CREATE TABLE `main_service` (
+CREATE TABLE `faq_tbl` (
   `id` int(11) NOT NULL,
-  `service_name` varchar(50) DEFAULT NULL,
-  `title` varchar(100) DEFAULT NULL,
-  `description` longtext DEFAULT NULL,
-  `img_path` varchar(100) DEFAULT NULL,
-  `thumbnail_path` varchar(250) DEFAULT NULL,
-  `start_date` date DEFAULT NULL,
-  `end_date` date DEFAULT NULL
+  `service_id` varchar(50) DEFAULT NULL,
+  `service_type` varchar(50) DEFAULT NULL,
+  `service_name` varchar(100) DEFAULT NULL,
+  `question` varchar(250) DEFAULT NULL,
+  `answer` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `main_service`
+-- Dumping data for table `faq_tbl`
 --
 
-INSERT INTO `main_service` (`id`, `service_name`, `title`, `description`, `img_path`, `thumbnail_path`, `start_date`, `end_date`) VALUES
-(20, 'Plumbers', 'Plumbers', '<div class=\"d9FyLd\" style=\"padding: 0px 0px 10px; color: rgb(32, 33, 36); font-family: arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">The standard Lorem Ipsum passage, used since the 1500s</div><p><span class=\"hgKElc\" style=\"padding: 0px 8px 0px 0px; color: rgb(32, 33, 36); font-family: arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>', 'image-1677577705420.Plumbers-1.jpg', 'thumbnail-image-1677577705420.Plumbers-1.jpg', '2023-02-28', '2023-03-05'),
-(22, 'Electrician', 'aasasasas', '<div class=\"d9FyLd\" style=\"padding: 0px 0px 10px; color: rgb(32, 33, 36); font-family: arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">The standard Lorem Ipsum passage, used since the 1500s</div><p><span class=\"hgKElc\" style=\"padding: 0px 8px 0px 0px; color: rgb(32, 33, 36); font-family: arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>', 'image-1677579758558.5serone.jpg', 'thumbnail-image-1677579758558.5serone.jpg', '2023-02-28', '2023-03-05'),
-(23, 'Painters', 'Painters', '<div class=\"d9FyLd\" style=\"padding: 0px 0px 10px; color: rgb(32, 33, 36); font-family: arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">The standard Lorem Ipsum passage, used since the 1500s</div><p><span class=\"hgKElc\" style=\"padding: 0px 8px 0px 0px; color: rgb(32, 33, 36); font-family: arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>', 'image-1677579863014.painting-contractors.jpg', 'thumbnail-image-1677579863014.painting-contractors.jpg', '2023-02-28', '2023-03-05'),
-(24, ' House cleaners', ' House cleaners', '<div class=\"d9FyLd\" style=\"padding: 0px 0px 10px; color: rgb(32, 33, 36); font-family: arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">The standard Lorem Ipsum passage, used since the 1500s</div><p><span class=\"hgKElc\" style=\"padding: 0px 8px 0px 0px; color: rgb(32, 33, 36); font-family: arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>', 'image-1677579979818.shutterstock_657213997.jpg', 'thumbnail-image-1677579979818.shutterstock_657213997.jpg', '2023-02-27', '2023-03-04');
+INSERT INTO `faq_tbl` (`id`, `service_id`, `service_type`, `service_name`, `question`, `answer`) VALUES
+(42, '1', 'main_service', 'Electrician', 'The standard Lorem Ipsum passage, used since the 1500s', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do'),
+(43, '7', 'main_service', 'Plumbers', ' freestar  freestar What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scramb', '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitatio'),
+(44, '1', 'main_service', 'Electrician', 'The standard Lorem Ipsum passage, used since the 1500s', '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
+(45, '1', 'main_service', 'Electrician', 'The standard Lorem Ipsum passage, used since the 1500s', '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitatio'),
+(46, '7', 'main_service', 'Plumbers', 'The standard Lorem Ipsum passage, used since the 1500s', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
+(47, '7', 'main_service', 'Plumbers', 'The standard Lorem Ipsum passage, used since the 1500s', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
+(48, '9', 'sub_service', 'Fan', 'Section 1.10.32 of \"de Finibus Bonorum et Malorum\", written by Cicero in 45 BC', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia vo'),
+(49, '9', 'sub_service', 'Fan', 'Section 1.10.32 of \"de Finibus Bonorum et Malorum\", written by Cicero in 45 BC', '\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia v'),
+(51, '10', 'sub_service', 'Moter', 'Section 1.10.33 of \"de Finibus Bonorum et Malorum\", written by Cicero in 45 BC', 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mo');
 
 -- --------------------------------------------------------
 
@@ -196,38 +201,45 @@ INSERT INTO `otp_tbl` (`email`, `otp`, `times`) VALUES
 ('ayusharya0506@gmail.com', '664884', '2023-02-13 08:22:11'),
 ('ayusharya0506@gmail.com', '489893', '2023-02-13 08:22:28'),
 ('ayusharya0506@gmail.com', '864029', '2023-02-13 08:23:02'),
-('ayusharya0506@gmail.com', '615839', '2023-02-13 08:23:27');
+('ayusharya0506@gmail.com', '615839', '2023-02-13 08:23:27'),
+('ayusharya0506@gmail.com', '753723', '2023-03-03 09:28:02');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sub_service`
+-- Table structure for table `services_tbl`
 --
 
-CREATE TABLE `sub_service` (
+CREATE TABLE `services_tbl` (
   `id` int(11) NOT NULL,
   `service_name` varchar(50) DEFAULT NULL,
-  `sub_service_name` varchar(100) DEFAULT NULL,
-  `description` varchar(1000) DEFAULT NULL,
+  `service_type` varchar(50) DEFAULT NULL,
+  `main_service_id` varchar(50) DEFAULT NULL,
+  `description` longtext DEFAULT NULL,
   `img_path` varchar(250) DEFAULT NULL,
   `thumbnail_path` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `sub_service`
+-- Dumping data for table `services_tbl`
 --
 
-INSERT INTO `sub_service` (`id`, `service_name`, `sub_service_name`, `description`, `img_path`, `thumbnail_path`) VALUES
-(22, '22', 'Moter', '<div class=\"d9FyLd\" style=\"padding: 0px 0px 10px; color: rgb(32, 33, 36); font-family: arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">The standard Lorem Ipsum passage, used since the 1500s</div><p></p>', 'image-1677587794422.home-pump.jpg', 'thumbnail-image-1677587794422.home-pump.jpg'),
-(23, '22', 'Fan', '<div class=\"d9FyLd\" style=\"padding: 0px 0px 10px; color: rgb(32, 33, 36); font-family: arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">The standard Lorem Ipsum passage, used since the 1500s</div><p><span class=\"hgKElc\" style=\"padding: 0px 8px 0px 0px; color: rgb(32, 33, 36); font-family: arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; ', 'image-1677587909547.download (3).jpg', 'thumbnail-image-1677587909547.download (3).jpg');
+INSERT INTO `services_tbl` (`id`, `service_name`, `service_type`, `main_service_id`, `description`, `img_path`, `thumbnail_path`) VALUES
+(1, 'Electrician', 'main_service', NULL, '<p><strong style=\"background-color: rgb(255, 255, 255); color: rgb(4, 12, 40); font-weight: 500; font-family: arial, helvetica, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;\">Installs and repairs electrical wiring, systems, and fixtures in buildings</strong><span style=\"color: rgb(32, 33, 36); font-family: &quot;Google Sans&quot;, arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important; font-size: 22px;\"><span style=\"font-family: arial, helvetica, sans-serif; font-size: 14px;\"><span style=\"background-color: rgb(255, 255, 255);\">.</span><span style=\"font-size: 14px;\"> Installs conduits and pipes to house electrical wires and cables. Ensures piping complies with electrical codes. Installs circuit breakers and other electrical hardware and connects wi</span></span></span><span style=\"color: rgb(32, 33, 36); font-family: &quot;Google Sans&quot;, arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important; font-size: 22px;\"><span style=\"font-family: arial, helvetica, sans-serif; font-size: 14px;\"><span style=\"font-size: 14px;\">ring to them</span></span><span style=\"font-size: 22px;\">.</span></span></p>', 'image-1677931148291.5serone.jpg', 'thumbnail-image-1677931148291.5serone.jpg'),
+(7, 'Plumbers', 'main_service', NULL, '<p><span style=\"color: rgb(32, 33, 36); font-family: &quot;Google Sans&quot;, arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important; font-size: 14px;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>', 'image-1677930556906.VIGILANT-plumber-fixing-a-sink-shutterstock_132523334-e1448389230378.jpg', 'thumbnail-image-1677930556906.VIGILANT-plumber-fixing-a-sink-shutterstock_132523334-e1448389230378.jpg'),
+(9, 'Fan', 'sub_service', '1', '<p><span style=\"color: rgb(32, 33, 36); font-family: &quot;Google Sans&quot;, arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important; font-size: 14px;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</span><span style=\"font-size: 14px;\"></span></p>', 'image-1677934565718.download (3).jpg', 'thumbnail-image-1677934565718.download (3).jpg'),
+(10, 'Moter', 'sub_service', '1', '<p><span style=\"color: rgb(32, 33, 36); font-family: &quot;Google Sans&quot;, arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important; font-size: 14px;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</span></p>', 'image-1677934594215.home-pump.jpg', 'thumbnail-image-1677934594215.home-pump.jpg'),
+(11, 'Water Tank', 'sub_service', '7', '<p><span style=\"color: rgb(32, 33, 36); font-family: &quot;Google Sans&quot;, arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important; font-size: 14px;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</span><span style=\"font-size: 14px;\"></span></p>', 'image-1677934983432.plastic-water-tank-500x500.webp', 'thumbnail-image-1677934983432.plastic-water-tank-500x500.webp'),
+(12, 'House Cleaners', 'main_service', NULL, '<p><span style=\"font-size: 14px;\"><span style=\"color: rgb(32, 33, 36); font-family: &quot;Google Sans&quot;, arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;\">Housekeepers are&nbsp;</span><strong style=\"background-color: rgb(255, 255, 255); color: rgb(4, 12, 40); font-weight: 500; font-family: &quot;Google Sans&quot;, arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 22px;\">responsible for cleaning and reporting any safety hazards to the homeowner or manager in charge</strong></span><span style=\"color: rgb(32, 33, 36); font-family: &quot;Google Sans&quot;, arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important; font-size: 14px;\">. They must complete tasks like vacuuming, sweeping, emptying trash cans, dusting shelves, cleaning windows, and mopping floors. Some Housekeepers change linens, wash dishes, and do light ironing and laundry.</span><br></p>', 'image-1678081174021.shutterstock_657213997.jpg', 'thumbnail-image-1678081174021.shutterstock_657213997.jpg'),
+(13, 'Painters', 'main_service', NULL, '<p><strong style=\"background-color: rgb(255, 255, 255); color: rgb(4, 12, 40); font-weight: 500; font-family: &quot;Google Sans&quot;, arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;\">Applies paints, sealers, and solvents to exterior and interior building surfaces such as plaster, sheetrock, concrete, and wood</strong><span style=\"color: rgb(32, 33, 36); font-family: &quot;Google Sans&quot;, arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important; font-size: 14px;\">. Performs building exterior and interior caulking, finish repair, mud and tape, and texturing tasks. Operates equipment such as airless spray equipment, scaffolding, and motorized lifts</span><br></p>', 'image-1678081276785.painting-contractors.jpg', 'thumbnail-image-1678081276785.painting-contractors.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `user_tbl`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `user_tbl` (
   `id` int(50) NOT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
@@ -252,10 +264,10 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `user_tbl`
 --
 
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `gender`, `email`, `country`, `state`, `address`, `city`, `area`, `mobile_no`, `password`, `experience`, `service_name`, `service_charge`, `upload_file`, `document_type`, `document_file`, `user_role`, `current_date`, `update_date`) VALUES
+INSERT INTO `user_tbl` (`id`, `first_name`, `last_name`, `gender`, `email`, `country`, `state`, `address`, `city`, `area`, `mobile_no`, `password`, `experience`, `service_name`, `service_charge`, `upload_file`, `document_type`, `document_file`, `user_role`, `current_date`, `update_date`) VALUES
 (139, 'Ayush', 'Arya', 'Male', 'ayusharya6395@gmail.com', 'india', 'MP', 'vijay nagar', 'shajapur', NULL, '9907099070', '123456', NULL, NULL, NULL, NULL, NULL, NULL, 3, '2023-02-03', '2023-02-03'),
 (180, 'Test', 'Test', NULL, 'ayusharya0506@gmail.com', NULL, NULL, 'vijay nagar', 'indore', 'near by hanuman tapmple', '9907099070', '123456', '3 year', 'Plumbers, Electrician, Painters, House cleaning ', '500', 'thumbnail-image-1677216668773.shutterstock_2139282303-1.jpg', 'AADHAAR CARD', 'thumbnail-image-1677216668775.1000_F_399822445_pk1SJ0o1vTuRpIti0uh0px5tN2YLN3l3.jpg', 2, '2023-02-24', '2023-02-24'),
 (181, 'golu', 'arya', NULL, 'ayusharya6395@gmail.com', NULL, NULL, 'vijay nagar', 'indore', 'near by hanuman tapmple', '9907099070', '123456', '4 year', 'Painters,Plumbers,Electrician,House cleaning ', '1500', 'thumbnail-image-1677217097272.stock-vector-sympathetic-painter-dressed-in-work-clothes-he-carries-a-brush-273627476.jpg', 'AADHAAR CARD', 'thumbnail-image-1677217097665.1000_F_399822445_pk1SJ0o1vTuRpIti0uh0px5tN2YLN3l3.jpg', 2, '2023-02-24', NULL),
@@ -266,27 +278,27 @@ INSERT INTO `user` (`id`, `first_name`, `last_name`, `gender`, `email`, `country
 --
 
 --
--- Indexes for table `contact_details`
+-- Indexes for table `contact_details_tbl`
 --
-ALTER TABLE `contact_details`
+ALTER TABLE `contact_details_tbl`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `main_service`
+-- Indexes for table `faq_tbl`
 --
-ALTER TABLE `main_service`
+ALTER TABLE `faq_tbl`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `sub_service`
+-- Indexes for table `services_tbl`
 --
-ALTER TABLE `sub_service`
+ALTER TABLE `services_tbl`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user`
+-- Indexes for table `user_tbl`
 --
-ALTER TABLE `user`
+ALTER TABLE `user_tbl`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -294,27 +306,27 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `contact_details`
+-- AUTO_INCREMENT for table `contact_details_tbl`
 --
-ALTER TABLE `contact_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+ALTER TABLE `contact_details_tbl`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
--- AUTO_INCREMENT for table `main_service`
+-- AUTO_INCREMENT for table `faq_tbl`
 --
-ALTER TABLE `main_service`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+ALTER TABLE `faq_tbl`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
--- AUTO_INCREMENT for table `sub_service`
+-- AUTO_INCREMENT for table `services_tbl`
 --
-ALTER TABLE `sub_service`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+ALTER TABLE `services_tbl`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT for table `user_tbl`
 --
-ALTER TABLE `user`
+ALTER TABLE `user_tbl`
   MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=183;
 COMMIT;
 

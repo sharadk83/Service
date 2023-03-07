@@ -12,12 +12,12 @@ const SubServies = () => {
   const [img, setImg] = useState("");
   const [responseStatus, setResponseStatus] = useState("");
   const [formData, setFormData] = useState({
-    services: "",
+    main_service_id: "",
     sub_service_name: "",
     description: "",
   });
 
-  const { services, sub_service_name, description } = formData;
+  const { main_service_id, sub_service_name, description } = formData;
 
   const handleImg = (e) => {
     const file = e.target.files[0];
@@ -36,18 +36,14 @@ const SubServies = () => {
     let isValid = true;
     // let textRegex = /^[a-zA-Z\s]+$/;
 
-    if (!inputValid.services) {
+    if (!inputValid.main_service_id) {
       isValid = false;
-      formErrors.services = "Services field is required!";
+      formErrors.main_service_id = "Services field is required!";
     }
     if (!inputValid.sub_service_name) {
       isValid = false;
       formErrors.sub_service_name = "Sub Services field is required!";
     }
-    // else if (!textRegex.test(inputValid.sub_service_name)) {
-    //   isValid = false;
-    //   formErrors.sub_service_name = "This is not a valid Text";
-    // }
     if (!inputValid.description) {
       isValid = false;
       formErrors.description = "Description field is required!";
@@ -83,7 +79,8 @@ const SubServies = () => {
 
     const Data = new FormData();
     Data.append("file", img);
-    Data.append("services", services);
+    Data.append("main_service_id", main_service_id);
+    Data.append("service_type", "sub_service");
     Data.append("sub_service_name", sub_service_name);
     Data.append("description", description);
     if (validate()) {
@@ -127,8 +124,8 @@ const SubServies = () => {
                     <select
                       className="form-select"
                       onChange={handleCheck}
-                      value={services}
-                      name="services"
+                      value={main_service_id}
+                      name="main_service_id"
                     >
                       <option defaultValue="">Choose services</option>
                       {Data.map((item, index) => (
@@ -138,11 +135,11 @@ const SubServies = () => {
                       ))}
                     </select>
                     <small style={{ color: "red" }}>
-                      {formErrors.services}
+                      {formErrors.main_service_id}
                     </small>
                   </div>
                   <div className="col-md-6">
-                    <label className="form-label">Name</label>
+                    <label className="form-label">Sub Service Name</label>
                     <input
                       type="text"
                       className="form-control"

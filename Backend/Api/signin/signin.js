@@ -8,7 +8,7 @@ router.post("/", (req, res) => {
   const { email, password } = req.body;
 
   // Check if email and password match
-  const query = `SELECT * FROM user WHERE email = '${email}' AND password = '${password}'`;
+  const query = `SELECT * FROM user_tbl WHERE email = '${email}' AND password = '${password}'`;
   conn.query(query, (err, result) => {
     const userName = result[0].first_name;
     const userId = result[0].id;

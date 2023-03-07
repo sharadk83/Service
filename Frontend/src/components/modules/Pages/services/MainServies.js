@@ -14,12 +14,9 @@ const MainServies = () => {
   const [imgPath, setImgPath] = useState("");
   const [formData, setFormData] = useState({
     service_name: "",
-    title: "",
     description: "",
-    start_date: "",
-    end_date: "",
   });
-  const { service_name, title, description, start_date, end_date } = formData;
+  const { service_name, description } = formData;
 
   // -------------------Custom_validation-------------------------------------
 
@@ -31,29 +28,14 @@ const MainServies = () => {
 
     if (!inputValid.service_name) {
       isValid = false;
-      formErrors.service_name = "Name field is required!";
+      formErrors.service_name = "Service field is required!";
     } else if (!textRegex.test(inputValid.service_name)) {
       isValid = false;
       formErrors.service_name = "This is not a valid Text";
     }
-    if (!inputValid.title) {
-      isValid = false;
-      formErrors.title = "Title field is required!";
-    } else if (!textRegex.test(inputValid.title)) {
-      isValid = false;
-      formErrors.title = "This is not a valid Text";
-    }
     if (!inputValid.description) {
       isValid = false;
       formErrors.description = "Description field is required!";
-    }
-    if (!inputValid.start_date) {
-      isValid = false;
-      formErrors.start_date = "Date is required!";
-    }
-    if (!inputValid.end_date) {
-      isValid = false;
-      formErrors.end_date = "Date is required!";
     }
     if (!imgPath) {
       isValid = false;
@@ -88,10 +70,8 @@ const MainServies = () => {
     const Data = new FormData();
     Data.append("file", imgPath);
     Data.append("service_name", service_name);
-    Data.append("title", title);
+    Data.append("service_type", "main_service");
     Data.append("description", description);
-    Data.append("start_date", start_date);
-    Data.append("end_date", end_date);
 
     if (validate()) {
       try {
@@ -146,21 +126,6 @@ const MainServies = () => {
                       {formErrors.service_name}
                     </small>
                   </div>
-                  <div className="col-md-8 m-0">
-                    <div className="form-floating mb-3">
-                      <input
-                        type="text"
-                        className="form-control shadow-sm"
-                        id="floatingInput"
-                        placeholder="Add Title"
-                        onChange={handleCheck}
-                        value={title}
-                        name="title"
-                      />
-                      <label for="floatingInput">Add Title</label>
-                    </div>
-                    <small style={{ color: "red" }}>{formErrors.title}</small>
-                  </div>
 
                   <div className="col-md-12 m-0">
                     <label className="form-label">Description</label>
@@ -175,32 +140,6 @@ const MainServies = () => {
                     </small>
                   </div>
 
-                  <div className="col-md-3 ">
-                    <label className="form-label">Start-Date</label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      onChange={handleCheck}
-                      value={start_date}
-                      name="start_date"
-                    />
-                    <small style={{ color: "red" }}>
-                      {formErrors.start_date}
-                    </small>
-                  </div>
-                  <div className="col-md-3 ">
-                    <label className="form-label">End-Date</label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      onChange={handleCheck}
-                      value={end_date}
-                      name="end_date"
-                    />
-                    <small style={{ color: "red" }}>
-                      {formErrors.end_date}
-                    </small>
-                  </div>
                   <div className="col-md-3 mt-5 ">
                     <input
                       onChange={handleImg}

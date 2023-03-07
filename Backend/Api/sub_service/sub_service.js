@@ -31,7 +31,8 @@ var upload = multer({
 
 // ---------------Sub_service-Post-Data------------------------------------------------------------
 router.post("/", upload.single("file"), async (req, res) => {
-  const { services, sub_service_name, description } = req.body;
+  const { main_service_id, service_type, sub_service_name, description } =
+    req.body;
   const { filename } = req.file;
 
   const thumbnailFilename = `thumbnail-${filename}`;
@@ -42,10 +43,11 @@ router.post("/", upload.single("file"), async (req, res) => {
     .toFile(thumbnailPath);
 
   conn.query(
-    "INSERT  INTO sub_service SET ?",
+    "INSERT  INTO services_tbl SET ?",
     {
-      service_name: services,
-      sub_service_name: sub_service_name,
+      main_service_id: main_service_id,
+      service_type: service_type,
+      service_name: sub_service_name,
       description: description,
       img_path: filename,
       thumbnail_path: thumbnailFilename,
@@ -70,7 +72,8 @@ router.post("/", upload.single("file"), async (req, res) => {
 // -----------------Get-All-Data-------------------------------------------------------
 
 router.get("/", (req, res) => {
-  conn.query("select * from sub_service ", (err, result) => {
+  const sql = `SELECT * FROM services_tbl WHERE service_type='sub_service'`;
+  conn.query(sql, (err, result) => {
     if (err) {
       res.send("error");
     } else {
@@ -82,24 +85,19 @@ router.get("/", (req, res) => {
 
 router.get("/services/:id", (req, res) => {
   const id = req.params.id;
-
-  conn.query(
-    "SELECT * FROM sub_service WHERE service_name= ?",
-    id,
-    (error, result) => {
-      if (error) {
-        res.send("error");
-      } else {
-        res.send(result);
-        // console.log(result);
-      }
+  const sql = `SELECT * FROM services_tbl WHERE main_service_id=?`;
+  conn.query(sql, id, (error, result) => {
+    if (error) {
+      res.send("error");
+    } else {
+      res.send(result);
     }
-  );
+  });
 });
 // -----------------Get-particular-Data-------------------------------------------------
 router.get("/data/:id", (req, res) => {
   const id = req.params.id;
-  conn.query("SELECT * FROM sub_service WHERE id = ?", id, (error, result) => {
+  conn.query("SELECT * FROM services_tbl WHERE id = ?", id, (error, result) => {
     // console.log(result);
     if (error) {
       res.send("error");
@@ -112,7 +110,7 @@ router.get("/data/:id", (req, res) => {
 // -----------------Delete-particular-Data----------------------------------------------
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
-  conn.query("DELETE FROM sub_service WHERE id = ?", id, (error, result) => {
+  conn.query("DELETE FROM services_tbl WHERE id = ?", id, (error, result) => {
     if (error) {
       res.send({
         msgType: "error",
@@ -162,9 +160,9 @@ router.put("/:id", Updateupload.single("file"), async (req, res) => {
     .resize(65, 65)
     .toFile(thumbnailPath);
 
-  const sql = `UPDATE sub_service SET service_name = ?, sub_service_name=?, description = ?,img_path=?,thumbnail_path=? WHERE id = ?`;
+  const sql = `UPDATE services_tbl SET main_service_id = ?, service_name=?, description = ?,img_path=?,thumbnail_path=? WHERE id = ?`;
   const values = [
-    req.body.services,
+    req.body.main_service_id,
     req.body.sub_service_name,
     req.body.description,
     req.file.filename,

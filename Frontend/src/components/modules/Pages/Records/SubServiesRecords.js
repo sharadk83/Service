@@ -64,7 +64,6 @@ const SubServiesRecords = () => {
                       <tr>
                         <th scope="col">No.</th>
                         <th scope="col">Image</th>
-                        <th scope="col">Services ID</th>
                         <th scope="col">Sub Service</th>
                         <th scope="col">Description</th>
                         <th scope="col">Action</th>
@@ -83,7 +82,6 @@ const SubServiesRecords = () => {
                             />
                           </td>
                           <td>{item.service_name}</td>
-                          <td>{item.sub_service_name}</td>
                           <td
                             dangerouslySetInnerHTML={{
                               __html: item.description,

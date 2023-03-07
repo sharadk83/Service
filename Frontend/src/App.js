@@ -13,7 +13,7 @@ import EditMainServies from "./components/modules/Pages/services/EditPages/EditM
 import EditSubServies from "./components/modules/Pages/services/EditPages/EditSubServies";
 import SubServiesRecords from "./components/modules/Pages/Records/SubServiesRecords";
 import Profile from "./components/modules/Dashboard/Profile";
-import AddCoupon from "./components/modules/Pages/Coupon/AddCoupon";
+import AddCoupon from "./components/modules/Coupon/AddCoupon";
 import PrivateRoute from "./PrivateRoute";
 import AllPages from "./components/modules/Frontend/AllPages";
 import AddNewPages from "./components/modules/Frontend/AddNewPages";
@@ -24,9 +24,12 @@ import UserRecords from "./components/modules/Pages/Records/UserRecords";
 import EditUser from "./components/modules/Pages/Users/EditUser";
 import Test from "./Test";
 import PageNotFound from "./components/PageNotFound";
-import InquiryIndex from "./components/modules/Pages/Service_Inquiry/Inquiry_Index";
-import ServiceDetails from "./components/modules/Pages/Service_Inquiry/ServiceDetails";
+import InquiryDetails from "./components/modules/Service_Inquiry/InquiryDetails";
 import AddNewBenner from "./components/modules/Benner/AddNewBenner";
+import ServiceFaq from "./components/modules/FAQ/ServiceFaq";
+import ListServiceFAQ from "./components/modules/FAQ/Listing_FAQ/ListServiceFAQ";
+import EditServiceFaq from "./components/modules/FAQ/Edit_FAQ/EditServiceFaq";
+import SubServiceFaq from "./components/modules/FAQ/SubServiceFaq";
 
 const App = () => {
   return (
@@ -53,11 +56,14 @@ const App = () => {
           <Route exact path="library" element={<Library />} />
           <Route exact path="add-new-library" element={<AddNewLibrary />} />
           <Route exact path="add-new-benner" element={<AddNewBenner />} />
-          <Route exact path="inquiry-index" element={<InquiryIndex />} />
+          <Route exact path="faq" element={<ServiceFaq />} />
+          <Route exact path="sub-faq" element={<SubServiceFaq />} />
+          <Route exact path="edit_faq/:id" element={<EditServiceFaq />} />
+          <Route exact path="faq-records" element={<ListServiceFAQ />} />
           <Route
             exact
-            path="service_inq_details/:service_name"
-            element={<ServiceDetails />}
+            path="service_inq_details"
+            element={<InquiryDetails />}
           />
           <Route
             exact

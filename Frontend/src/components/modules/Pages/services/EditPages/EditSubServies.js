@@ -1,24 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
 import MainLayout from "../../../../Layout/MainLayout";
 import { useNavigate, useParams } from "react-router-dom";
-import Editor from "jodit-react";
 import axios from "axios";
+import Editor from "jodit-react";
 
 const SubServies = () => {
-  const { id } = useParams();
-  const editor = useRef(null);
+  const {id} = useParams();
   const navigate = useNavigate();
+  const editor = useRef(null);
   const [Data, SetData] = useState([]);
   const [formErrors, setFormError] = useState({});
   const [img, setImg] = useState("");
   const [responseStatus, setResponseStatus] = useState("");
   const [formData, setFormData] = useState({
+    main_service_id: "",
     service_name: "",
-    sub_service_name: "",
     description: "",
   });
 
-  const { service_name, sub_service_name, description } = formData;
+  const { main_service_id, service_name, description } = formData;
 
   const handleImg = (e) => {
     const file = e.target.files[0];
@@ -37,18 +37,14 @@ const SubServies = () => {
     let isValid = true;
     // let textRegex = /^[a-zA-Z\s]+$/;
 
+    if (!inputValid.main_service_id) {
+      isValid = false;
+      formErrors.main_service_id = "Services field is required!";
+    }
     if (!inputValid.service_name) {
       isValid = false;
-      formErrors.services_name = "Services field is required!";
+      formErrors.service_name = "Sub Services field is required!";
     }
-    if (!inputValid.sub_service_name) {
-      isValid = false;
-      formErrors.sub_service_name = "Sub Services field is required!";
-    }
-    // else if (!textRegex.test(inputValid.sub_service_name)) {
-    //   isValid = false;
-    //   formErrors.sub_service_name = "This is not a valid Text";
-    // }
     if (!inputValid.description) {
       isValid = false;
       formErrors.description = "Description field is required!";
@@ -103,8 +99,8 @@ const SubServies = () => {
 
     const Data = new FormData();
     Data.append("file", img);
-    Data.append("services", service_name);
-    Data.append("sub_service_name", sub_service_name);
+    Data.append("main_service_id", main_service_id);
+    Data.append("sub_service_name", service_name);
     Data.append("description", description);
     if (validate()) {
       try {
@@ -147,8 +143,8 @@ const SubServies = () => {
                     <select
                       className="form-select"
                       onChange={handleCheck}
-                      value={service_name}
-                      name="service_name"
+                      value={main_service_id}
+                      name="main_service_id"
                     >
                       <option defaultValue="">Choose services</option>
                       {Data.map((item, index) => (
@@ -167,11 +163,11 @@ const SubServies = () => {
                       type="text"
                       className="form-control"
                       onChange={handleCheck}
-                      name="sub_service_name"
-                      value={sub_service_name}
+                      name="service_name"
+                      value={service_name}
                     />
                     <small style={{ color: "red" }}>
-                      {formErrors.sub_service_name}
+                      {formErrors.service_name}
                     </small>
                   </div>
 

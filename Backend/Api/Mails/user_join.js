@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
 // -----------------Get-Data-ServiceName------------------------------------------------------
 
 router.get("/", (req, res) => {
-  connection.query("select * from contact_details ", (err, result) => {
+  connection.query("select * from contact_details_tbl ", (err, result) => {
     if (err) {
       res.send("error");
     } else {
@@ -28,25 +28,6 @@ router.get("/", (req, res) => {
   });
 });
 
-// -----------------Get-inquiry-details-------------------------------------------------------
-
-router.get("/:service_name", (req, res) => {
-  const service_name = req.params.service_name;
-  // console.log(req.params.service_name);
-
-  connection.query(
-    "SELECT * FROM contact_details WHERE service_name = ?",
-    service_name,
-    (err, result) => {
-      if (err) {
-        res.send("error");
-      } else {
-        res.send(result);
-        // console.log(result);
-      }
-    }
-  );
-});
 // --------------------------------Post------------------------------------
 router.post("/", (req, res) => {
   const { firstname, lastname, email, address, mobile, purpose, service_name } =
@@ -54,7 +35,7 @@ router.post("/", (req, res) => {
 
   let date = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
   connection.query(
-    "INSERT  INTO contact_details SET ?",
+    "INSERT  INTO contact_details_tbl SET ?",
     {
       first_name: firstname,
       last_name: lastname,

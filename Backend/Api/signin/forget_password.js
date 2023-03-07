@@ -16,7 +16,7 @@ router.post("/", (req, res) => {
   const email = req.body.email;
   // Check if email exists in database
   connection.query(
-    `SELECT * FROM user WHERE email = '${email}'`,
+    `SELECT * FROM user_tbl WHERE email = '${email}'`,
     (error, results) => {
       if (error) throw error;
       if (results.length > 0) {
@@ -85,7 +85,7 @@ router.put("/update_password", (req, res) => {
   const password = req.body.password;
 
   connection.query(
-    "UPDATE user SET password = ? WHERE email = ?",
+    "UPDATE user_tbl SET password = ? WHERE email = ?",
     [password, email],
     (err, results) => {
       if (err) {

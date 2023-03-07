@@ -28,16 +28,20 @@ const MainServiesRecords = () => {
   const constant = {
     getServiceUrl: `http://localhost:4000/api/main_service`,
   };
-  const showdata = () => {
-    axios.get(`${constant.getServiceUrl}`).then((res) => {
+
+  // ------------------------------Get-All-Service-Data------------------------------------
+  const showdata = async () => {
+    try {
+      const res = await axios.get(`${constant.getServiceUrl}`);
       SetDetails(res.data);
-      // console.log(res.data);
-    });
+    } catch (err) {
+      console.log(err);
+    }
   };
   useEffect(() => {
     showdata();
   }, []);
-
+  // ------------------------------Delete-Service-Data------------------------------------
   const handleDelete = (id) => {
     let DeleteServiceUrl = `http://localhost:4000/api/main_service/${id}`;
     axios.delete(DeleteServiceUrl).then((res) => {
@@ -86,27 +90,8 @@ const MainServiesRecords = () => {
                         <h6 className="card-title mx-2">
                           {item.service_name ? item.service_name : "N/A"}
                         </h6>
-                        <p className="card-text mx-2">
-                          <b>{item.title ? item.title : "N/A"}</b>
-                        </p>
                       </div>
                       <ul className="list-group list-group-flush">
-                        <li className="list-group-item d-flex">
-                          <div className="mx-2">
-                            {/* <b>Start Date </b> : {item.start_date} */}
-                            <b>Start Date : </b>
-                            {new Date(item.start_date)
-                              .toISOString()
-                              .substr(0, 10)}
-                          </div>
-                          <div className="mx-2">
-                            {/* <b>End Date </b> : {item.end_date} */}
-                            <b>End Date : </b>
-                            {new Date(item.end_date)
-                              .toISOString()
-                              .substr(0, 10)}
-                          </div>
-                        </li>
                         <li className="list-group-item mx-2">
                           <b>Description </b>
                           <div

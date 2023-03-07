@@ -85,7 +85,7 @@ router.post("/", uploadMultiple, async (req, res) => {
     .toFile(thumbnailPath_2);
 
   conn.query(
-    "INSERT  INTO user SET ?",
+    "INSERT  INTO user_tbl SET ?",
     {
       user_role: user_role,
       first_name: first_name,
@@ -130,7 +130,7 @@ router.post("/", uploadMultiple, async (req, res) => {
 // -----------------Get-All-vendor-Data-------------------------------------------------------
 
 router.get("/vendor", (req, res) => {
-  conn.query("select * from user where user_role=2", (err, result) => {
+  conn.query("select * from user_tbl where user_role=2", (err, result) => {
     if (err) {
       res.send("error");
     } else {
@@ -145,7 +145,7 @@ router.get("/service_vendor_list/:service_name", (req, res) => {
   // console.log(req.params.service_name);
 
   conn.query(
-    `SELECT * FROM user WHERE service_name LIKE '%${service_name}%'`,
+    `SELECT * FROM user_tbl WHERE service_name LIKE '%${service_name}%'`,
     (err, result) => {
       // console.log(result);
 
@@ -160,7 +160,7 @@ router.get("/service_vendor_list/:service_name", (req, res) => {
 // -----------------Get-All-User-Data-------------------------------------------------------
 
 router.get("/user", (req, res) => {
-  conn.query("select * from user where user_role=3", (err, result) => {
+  conn.query("select * from user_tbl where user_role=3", (err, result) => {
     if (err) {
       res.send("error");
     } else {
@@ -171,7 +171,7 @@ router.get("/user", (req, res) => {
 // -----------------Get-particular-Data-------------------------------------------------
 router.get("/data/:id", (req, res) => {
   const id = req.params.id;
-  conn.query("SELECT * FROM user WHERE id = ?", id, (error, result) => {
+  conn.query("SELECT * FROM user_tbl WHERE id = ?", id, (error, result) => {
     if (error) throw error;
     res.send(result);
   });
@@ -179,7 +179,7 @@ router.get("/data/:id", (req, res) => {
 // -----------------Delete-particular-Data----------------------------------------------
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
-  conn.query("DELETE FROM user WHERE id = ?", id, (error, result) => {
+  conn.query("DELETE FROM user_tbl WHERE id = ?", id, (error, result) => {
     if (error) {
       res.send({
         msgType: "error",
@@ -200,7 +200,7 @@ router.put("/:id", (req, res) => {
   const services = req.body.service_name.join(", ");
 
   let date = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
-  const sql = `UPDATE user SET first_name = ?, last_name = ?,  address = ?, mobile_no = ?, service_charge = ?, area = ?, experience = ? , city = ?,gender=?, state=?, country=? ,service_name=? ,update_date = ?   WHERE id = ?`;
+  const sql = `UPDATE user_tbl SET first_name = ?, last_name = ?,  address = ?, mobile_no = ?, service_charge = ?, area = ?, experience = ? , city = ?,gender=?, state=?, country=? ,service_name=? ,update_date = ?   WHERE id = ?`;
   const values = [
     req.body.first_name,
     req.body.last_name,

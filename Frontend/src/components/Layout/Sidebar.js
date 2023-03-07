@@ -63,10 +63,10 @@ const Sidebar = () => {
               <i className="bi bi-border-top  me-2"></i>Add Benner
             </Link>
             <Link
-              to="/url/inquiry-index                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "
+              to="/url/service_inq_details                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "
               className="nav-item nav-link "
             >
-              <i className="bi bi-telephone  me-2"></i>Inquiry Record
+              <i className="bi bi-telephone  me-2"></i>Contact DB
             </Link>
             {/* <hr className="mt-0 mb-0 text-white"/> */}
             {/* ////////////////////////////////////////////////////////// */}
@@ -149,7 +149,7 @@ const Sidebar = () => {
                 )}
               </div>
             </div>
-            {/* ////////////////////////pages////////////////////////////////// */}
+            {/* ------------------------------------pages--------------------------------- */}
             <div className="nav-item dropdown">
               <a
                 href="/"
@@ -169,7 +169,7 @@ const Sidebar = () => {
                 </Link>
               </div>
             </div>
-            {/* ////////////////////////pages////////////////////////////////// */}
+            {/* -----------------------------------pages------------------------------*/}
             <div className="nav-item dropdown">
               <a
                 href="/"
@@ -190,7 +190,32 @@ const Sidebar = () => {
               </div>
             </div>
 
-            {/* ////////////////////////////////////////////////////////// */}
+            {/* ---------------------------------------------------------------------------- */}
+
+            <div className="nav-item dropdown">
+              <a
+                href="/"
+                className="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+              >
+                <i className="bi bi-question-circle-fill me-2"></i>FAQ
+              </a>
+
+              <div className=" mx-3 my-1 dropdown-menu dropdown-menu-end  bg-white border rounded rounded-bottom m-0">
+                <Link to="/url/faq" className="dropdown-item">
+                  <small>Service FAQ</small>
+                </Link>
+                <hr className="mt-0 mb-0 text-primary" />
+                <Link to="/url/sub-faq" className="dropdown-item">
+                  <small>Sub-Service FAQ</small>
+                </Link>
+                <hr className="mt-0 mb-0 text-primary" />
+                <Link to="/url/faq-records" className="dropdown-item">
+                  <small>Listing Service FAQ</small>
+                </Link>
+              </div>
+            </div>
+            {/* ---------------------------------------------------------------------------- */}
 
             <Link to="/url/add-coupon" className="nav-item nav-link">
               <i className="  far fa-file-alt me-2"></i>Add Coupon
@@ -202,10 +227,9 @@ const Sidebar = () => {
             >
               <i className=" fa fa-th me-2"></i>Supplier
             </Link>
-
-            <Link to="/" className="nav-item nav-link ">
+            {/* <Link to="/" className="nav-item nav-link ">
               <i className="  fa fa-chart-bar me-2"></i>Charts
-            </Link>
+            </Link> */}
             <Link to="/" className="nav-item nav-link ">
               <i className="  bi  bi-box-arrow-in-right me-2"></i>SignIn
             </Link>

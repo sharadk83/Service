@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MainLayout from "../../../Layout/MainLayout";
+import MainLayout from "../../Layout/MainLayout";
 import axios from "axios";
 
 const AddCoupon = () => {

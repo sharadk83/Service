@@ -126,11 +126,13 @@ const EditVendor = () => {
 
   // -----------------------------------get-Services-Name-Data---------------------------------------------------
 
-  const showdata = () => {
-    axios.get(`${constant.getServiceUrl}`).then((res) => {
+  const showdata = async () => {
+    try {
+      const res = await axios.get(`${constant.getServiceUrl}`);
       SetData(res.data);
-      // console.log(res.data);
-    });
+    } catch (err) {
+      console.log(err);
+    }
   };
   const uniqueNames = [...new Set(Data.map((item) => item.service_name))];
 
